@@ -43,7 +43,7 @@ junie "Finish the sum function in the MyFile.kt" -p ./my-project
 | Option | Description | Example |
 | --- | --- | --- |
 | `-g, --github-url=<value>` | Any GitHub URL for an issue, PR, CI or comment | `--github-url "https://github.com/user/repo/pull/1#pullrequestreview-123"` |
-| `--github-issue=<value>` | GitHub issue URL | `--github-issue "https://github.com/owner/repo/issues/12" |
+| `--github-issue=<value>` | GitHub issue URL | `--github-issue "https://github.com/owner/repo/issues/12"` |
 | `--github-pr-review=<value>` | GitHub PR review URL | `--github-pr-review "https://github.com/owner/repo/pull/456#pullrequestreview-123"` |
 | `--github-issue-comment=<value>` | GitHub PR comment URL | `--github-issue-comment "https://github.com/owner/repo/issues/12#issuecomment-456"` |
 | `--github-fix-ci=<value>` | GitHub CI check URL |  |
