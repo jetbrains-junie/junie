@@ -4,11 +4,11 @@ A command-line Junie interface for running code tasks.
 ## Usage
 
 ``` bash
-junie-runner [<options>] [<task>]
+junie [<options>] [<task>]
 
 # Examples
-junie-runner "Fix the bug in MyClass"
-junie-runner "Finish the sum function in the MyFile.kt" -p ./my-project
+junie "Fix the bug in MyClass"
+junie "Finish the sum function in the MyFile.kt" -p ./my-project
 ```
 
 ## Arguments
