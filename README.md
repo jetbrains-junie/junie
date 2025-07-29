@@ -5,10 +5,19 @@ A command-line Junie interface for running code tasks.
 
 ``` bash
 junie [<options>] [<task>]
+```
 
-# Examples
+Quick start example
+
+``` bash
+cd you-project-folder
 junie "Fix the bug in MyClass"
-junie "Finish the sum function in the MyFile.kt" -p ./my-project
+```
+
+Or run Junie from your terminal in any other place
+
+```bash
+junie "Finish the sum function in the MyFile.kt" -p /path/to/project
 ```
 
 ## Arguments
@@ -21,12 +30,12 @@ junie "Finish the sum function in the MyFile.kt" -p ./my-project
 
 ### Core Options
 
+
 | Option | Description                                                       |
 | --- |-------------------------------------------------------------------|
-| `--task=<text>` | Task description (alternative to positional argument)             |
-| `-f, --file=<text>` | Path to the JSON task file                                        |
+| `--task=<text>` | Task description (alternative to positional argument)             |                                  |
 | `-p, --project=<text>` | Project directory to run Junie (default is the current directory) |
-| `--ide=<text>` | IDE + Version (e.g., `IdeaUltimate 2025.1`), IDEA Ultimate 2025.1 is default|
+| `--ide=<text>` | IDE + Version (e.g., `IdeaUltimate 2025.1.2`), IDEA Ultimate 2025.1 is default|
 
 ### Authentication Options
 
@@ -36,7 +45,7 @@ junie "Finish the sum function in the MyFile.kt" -p ./my-project
 
 ### Supported Token Formats
 - **GitHub tokens**: `ghp_*` or `github_pat_*`
-- **Ingrazzio tokens**: `igz_*` or contains "ingrazzio"
+- **Ingrazzio tokens**
 
 ### GitHub Options
 
@@ -58,6 +67,28 @@ junie "Finish the sum function in the MyFile.kt" -p ./my-project
 | `--version` | Show version |
 | `-h, --help` | Show help message and exit |
 
+## Environment Variables Configuration
+
+You can configure Junie Runner using environment variables instead of command-line options. This is particularly useful for **CI/CD environments** and automated deployments.
+
+### Available Environment Variables
+
+| Environment Variable | Equivalent Option | Description |
+| --- | --- | --- |
+| `PROJECT` | `-p, --project` | Project directory to run Junie |
+| `ENV_TIME_LIMIT` | `-t, --timeout` | Time limit in milliseconds |
+| `FOLDER_WORK` | `-c, --cache-dir` | Caching directory for agent and IDE |
+
+### CI/CD Script Example
+
+``` bash
+# Set environment variables for Junie configuration
+export PROJECT="/workspace/my-project" 
+export ENV_TIME_LIMIT="300000" # 5 minutes timeout
+export FOLDER_WORK="/tmp/junie-cache"
+
+junie "Review and fix any code quality issues in the latest commit"
+```
 
 ## Important Notes
 - **GitHub URLs**: URLs containing fragments (#) must be quoted to prevent shell interpretation
