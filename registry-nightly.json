@@ -754,7 +754,7 @@
     {
       "id": "junie",
       "name": "Junie",
-      "version": "2550.1",
+      "version": "2551.1",
       "description": "AI Coding Agent by JetBrains",
       "repository": "https://github.com/JetBrains/junie-acp-release",
       "website": "https://junie.jetbrains.com",
@@ -765,42 +765,42 @@
       "distribution": {
         "binary": {
           "darwin-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2550.1/junie-nightly-2550.1-macos-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2551.1/junie-nightly-2551.1-macos-aarch64.zip",
             "cmd": "./Applications/junie.app/Contents/MacOS/junie",
             "args": [
               "--acp=true"
             ]
           },
           "darwin-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2550.1/junie-nightly-2550.1-macos-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2551.1/junie-nightly-2551.1-macos-amd64.zip",
             "cmd": "./Applications/junie.app/Contents/MacOS/junie",
             "args": [
               "--acp=true"
             ]
           },
           "linux-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2550.1/junie-nightly-2550.1-linux-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2551.1/junie-nightly-2551.1-linux-aarch64.zip",
             "cmd": "./junie-app/bin/junie",
             "args": [
               "--acp=true"
             ]
           },
           "linux-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2550.1/junie-nightly-2550.1-linux-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2551.1/junie-nightly-2551.1-linux-amd64.zip",
             "cmd": "./junie-app/bin/junie",
             "args": [
               "--acp=true"
             ]
           },
           "windows-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2550.1/junie-nightly-2550.1-windows-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2551.1/junie-nightly-2551.1-windows-amd64.zip",
             "cmd": "./junie/junie.exe",
             "args": [
               "--acp=true"
             ]
           },
           "windows-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2550.1/junie-nightly-2550.1-windows-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2551.1/junie-nightly-2551.1-windows-aarch64.zip",
             "cmd": "./junie/junie.exe",
             "args": [
               "--acp=true"
@@ -953,7 +953,7 @@
     {
       "id": "mistral-vibe",
       "name": "Mistral Vibe",
-      "version": "2.23.0",
+      "version": "2.23.1",
       "description": "Mistral's open-source coding assistant",
       "repository": "https://github.com/mistralai/mistral-vibe",
       "website": "https://mistral.ai/products/vibe",
@@ -965,29 +965,29 @@
       "distribution": {
         "binary": {
           "darwin-aarch64": {
-            "archive": "https://github.com/mistralai/mistral-vibe/releases/download/v2.23.0/vibe-acp-darwin-aarch64-2.23.0.zip",
+            "archive": "https://github.com/mistralai/mistral-vibe/releases/download/v2.23.1/vibe-acp-darwin-aarch64-2.23.1.zip",
             "cmd": "./vibe-acp",
-            "sha256": "221418b96eaa71cb2dcdd5854fb713736552fece36002983b0a6a447e1bc5c9b"
+            "sha256": "12a0d7cedf6e17bb3ce41c70c8712d5694090f4e9ba51ec46434f790418034b8"
           },
           "darwin-x86_64": {
-            "archive": "https://github.com/mistralai/mistral-vibe/releases/download/v2.23.0/vibe-acp-darwin-x86_64-2.23.0.zip",
+            "archive": "https://github.com/mistralai/mistral-vibe/releases/download/v2.23.1/vibe-acp-darwin-x86_64-2.23.1.zip",
             "cmd": "./vibe-acp",
-            "sha256": "95b9625091fbda0cf11317849f4cb748d1989b63e2665ebff256710292cdef73"
+            "sha256": "8373432bf786ca49a05dff33238a459ef7b0ae0cb317325e07f9b377fae69bc3"
           },
           "linux-aarch64": {
-            "archive": "https://github.com/mistralai/mistral-vibe/releases/download/v2.23.0/vibe-acp-linux-aarch64-2.23.0.zip",
+            "archive": "https://github.com/mistralai/mistral-vibe/releases/download/v2.23.1/vibe-acp-linux-aarch64-2.23.1.zip",
             "cmd": "./vibe-acp",
-            "sha256": "735abb7abb41c1f569472548f317a5b619cbbbbb04709eab643449724de9c249"
+            "sha256": "94d5760a99be7ac080e8fcf5e7d82c17db66ed96ac155995795689d6112369df"
           },
           "linux-x86_64": {
-            "archive": "https://github.com/mistralai/mistral-vibe/releases/download/v2.23.0/vibe-acp-linux-x86_64-2.23.0.zip",
+            "archive": "https://github.com/mistralai/mistral-vibe/releases/download/v2.23.1/vibe-acp-linux-x86_64-2.23.1.zip",
             "cmd": "./vibe-acp",
-            "sha256": "192cc1c59a481eed357f1f0fd57f5ade7c6d6b4d7e091407cf850b2f29d4a720"
+            "sha256": "446d2401a944f8765417072a14890343786a170da7e4046ee432cce12fc1f5a2"
           },
           "windows-x86_64": {
-            "archive": "https://github.com/mistralai/mistral-vibe/releases/download/v2.23.0/vibe-acp-windows-x86_64-2.23.0.zip",
+            "archive": "https://github.com/mistralai/mistral-vibe/releases/download/v2.23.1/vibe-acp-windows-x86_64-2.23.1.zip",
             "cmd": "./vibe-acp.exe",
-            "sha256": "b635ae7ff4e1e26748a628f2e39288a58b018845b379531e75b2bf6d1ae928aa"
+            "sha256": "a3cff1667ed9d77664909a9a360f2402bcd315444d2ce405939f199327afe40c"
           }
         }
       }
