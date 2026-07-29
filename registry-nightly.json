@@ -487,7 +487,7 @@
     {
       "id": "dirac",
       "name": "Dirac",
-      "version": "0.4.28",
+      "version": "0.4.29",
       "description": "Reduces API costs by more than 50%, produces better and faster work. Uses Hash anchored parallel edits, AST manipulation and a whole lot of neat optimizations. Fully Open Source.",
       "repository": "https://github.com/dirac-run/dirac",
       "website": "https://dirac.run",
@@ -498,7 +498,7 @@
       "icon": "https://cdn.agentclientprotocol.com/registry/v1/latest/dirac.svg",
       "distribution": {
         "npx": {
-          "package": "dirac-cli@0.4.28",
+          "package": "dirac-cli@0.4.29",
           "args": [
             "--acp"
           ]
@@ -534,7 +534,7 @@
     {
       "id": "fast-agent",
       "name": "fast-agent",
-      "version": "0.9.26",
+      "version": "0.9.27",
       "description": "Code and build agents with comprehensive multi-provider support",
       "repository": "https://github.com/evalstate/fast-agent",
       "website": "https://fast-agent.ai",
@@ -544,7 +544,7 @@
       "license": "Apache 2.0",
       "distribution": {
         "uvx": {
-          "package": "fast-agent-acp==0.9.26",
+          "package": "fast-agent-acp==0.9.27",
           "args": [
             "-x"
           ]
@@ -671,7 +671,7 @@
     {
       "id": "grok-build",
       "name": "Grok Build",
-      "version": "0.2.114",
+      "version": "0.2.115",
       "description": "xAI's coding agent and CLI",
       "website": "https://x.ai/cli",
       "authors": [
@@ -680,7 +680,7 @@
       "license": "proprietary",
       "distribution": {
         "npx": {
-          "package": "@xai-official/grok@0.2.114",
+          "package": "@xai-official/grok@0.2.115",
           "args": [
             "agent",
             "stdio"
@@ -754,7 +754,7 @@
     {
       "id": "junie",
       "name": "Junie",
-      "version": "2581.1",
+      "version": "2582.1",
       "description": "AI Coding Agent by JetBrains",
       "repository": "https://github.com/JetBrains/junie-acp-release",
       "website": "https://junie.jetbrains.com",
@@ -765,42 +765,42 @@
       "distribution": {
         "binary": {
           "darwin-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2581.1/junie-nightly-2581.1-macos-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2582.1/junie-nightly-2582.1-macos-aarch64.zip",
             "cmd": "./Applications/junie.app/Contents/MacOS/junie",
             "args": [
               "--acp=true"
             ]
           },
           "darwin-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2581.1/junie-nightly-2581.1-macos-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2582.1/junie-nightly-2582.1-macos-amd64.zip",
             "cmd": "./Applications/junie.app/Contents/MacOS/junie",
             "args": [
               "--acp=true"
             ]
           },
           "linux-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2581.1/junie-nightly-2581.1-linux-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2582.1/junie-nightly-2582.1-linux-aarch64.zip",
             "cmd": "./junie-app/bin/junie",
             "args": [
               "--acp=true"
             ]
           },
           "linux-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2581.1/junie-nightly-2581.1-linux-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2582.1/junie-nightly-2582.1-linux-amd64.zip",
             "cmd": "./junie-app/bin/junie",
             "args": [
               "--acp=true"
             ]
           },
           "windows-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2581.1/junie-nightly-2581.1-windows-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2582.1/junie-nightly-2582.1-windows-amd64.zip",
             "cmd": "./junie/junie.exe",
             "args": [
               "--acp=true"
             ]
           },
           "windows-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2581.1/junie-nightly-2581.1-windows-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2582.1/junie-nightly-2582.1-windows-aarch64.zip",
             "cmd": "./junie/junie.exe",
             "args": [
               "--acp=true"
