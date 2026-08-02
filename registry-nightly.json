@@ -127,7 +127,7 @@
     {
       "id": "cline",
       "name": "Cline",
-      "version": "3.0.48",
+      "version": "3.0.49",
       "description": "Autonomous coding agent CLI - capable of creating/editing files, running commands, using the browser, and more",
       "repository": "https://github.com/cline/cline",
       "website": "https://cline.bot/cli",
@@ -138,7 +138,7 @@
       "icon": "https://cdn.agentclientprotocol.com/registry/v1/latest/cline.svg",
       "distribution": {
         "npx": {
-          "package": "cline@3.0.48",
+          "package": "cline@3.0.49",
           "args": [
             "--acp"
           ]
@@ -168,7 +168,7 @@
     {
       "id": "codex-acp",
       "name": "Codex",
-      "version": "1.1.7",
+      "version": "1.1.8",
       "description": "ACP adapter for OpenAI's coding assistant",
       "repository": "https://github.com/agentclientprotocol/codex-acp",
       "authors": [
@@ -179,7 +179,7 @@
       "license": "Apache-2.0",
       "distribution": {
         "npx": {
-          "package": "@agentclientprotocol/codex-acp@1.1.7"
+          "package": "@agentclientprotocol/codex-acp@1.1.8"
         }
       },
       "icon": "https://cdn.agentclientprotocol.com/registry/v1/latest/codex-acp.svg"
@@ -492,7 +492,7 @@
     {
       "id": "dirac",
       "name": "Dirac",
-      "version": "0.4.31",
+      "version": "0.4.32",
       "description": "Reduces API costs by more than 50%, produces better and faster work. Uses Hash anchored parallel edits, AST manipulation and a whole lot of neat optimizations. Fully Open Source.",
       "repository": "https://github.com/dirac-run/dirac",
       "website": "https://dirac.run",
@@ -503,7 +503,7 @@
       "icon": "https://cdn.agentclientprotocol.com/registry/v1/latest/dirac.svg",
       "distribution": {
         "npx": {
-          "package": "dirac-cli@0.4.31",
+          "package": "dirac-cli@0.4.32",
           "args": [
             "--acp"
           ]
@@ -697,7 +697,7 @@
     {
       "id": "harn",
       "name": "Harn",
-      "version": "0.10.49",
+      "version": "0.10.50",
       "description": "Harn runs .harn agent pipelines as a native ACP coding agent over stdio.",
       "repository": "https://github.com/burin-labs/harn",
       "website": "https://harnlang.com",
@@ -708,49 +708,49 @@
       "distribution": {
         "binary": {
           "darwin-aarch64": {
-            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.49/harn-aarch64-apple-darwin.tar.gz",
+            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.50/harn-aarch64-apple-darwin.tar.gz",
             "cmd": "./harn",
             "args": [
               "serve",
               "acp"
             ],
-            "sha256": "4211b058f60125f7475450267f8871edeef32f7b9d3ac3e957c08a156034234d"
+            "sha256": "5426ac304575146378a461e5f5919cb557de4a4a34caf5e4479b7721f9c00e05"
           },
           "darwin-x86_64": {
-            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.49/harn-x86_64-apple-darwin.tar.gz",
+            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.50/harn-x86_64-apple-darwin.tar.gz",
             "cmd": "./harn",
             "args": [
               "serve",
               "acp"
             ],
-            "sha256": "af436e45a17d4df4d3e7cd5de9723da0cf0460d63877fc8e1f0ecdea0b22bc94"
+            "sha256": "6754311042f3bb1baef77d001c662277a3ca1fcec8afff46a8d9ad772cc1137f"
           },
           "linux-aarch64": {
-            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.49/harn-aarch64-unknown-linux-gnu.tar.gz",
+            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.50/harn-aarch64-unknown-linux-gnu.tar.gz",
             "cmd": "./harn",
             "args": [
               "serve",
               "acp"
             ],
-            "sha256": "434f1868f13828ef9e4ce1ede25eafd8bacd8dd02b37369a4a88ef54f8460d01"
+            "sha256": "b208a2edd69a90501bdbb7d8f8de93dda1563eac6f5713fee2b64d939b588815"
           },
           "linux-x86_64": {
-            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.49/harn-x86_64-unknown-linux-gnu.tar.gz",
+            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.50/harn-x86_64-unknown-linux-gnu.tar.gz",
             "cmd": "./harn",
             "args": [
               "serve",
               "acp"
             ],
-            "sha256": "228bd6c2e5b381cdd5264243c1651bc20779b84c9e94e30a99cc64b1c8f39814"
+            "sha256": "09f2618b722fa7b4ba9458e5d6b2b89f828667b59ed30fdd48e3799a11300754"
           },
           "windows-x86_64": {
-            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.49/harn-x86_64-pc-windows-msvc.zip",
+            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.50/harn-x86_64-pc-windows-msvc.zip",
             "cmd": "harn.exe",
             "args": [
               "serve",
               "acp"
             ],
-            "sha256": "4388b2ff1ac0dacea99fc11e716185ef9fe827e20806feffba39a10d648c40ad"
+            "sha256": "13f89a6cb6f614a8d3d0b157b25df0d79a41bd9fde46cdeabf0252a18ddcd243"
           }
         }
       },
@@ -759,7 +759,7 @@
     {
       "id": "junie",
       "name": "Junie",
-      "version": "2628.1",
+      "version": "2629.1",
       "description": "AI Coding Agent by JetBrains",
       "repository": "https://github.com/JetBrains/junie-acp-release",
       "website": "https://junie.jetbrains.com",
@@ -770,42 +770,42 @@
       "distribution": {
         "binary": {
           "darwin-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2628.1/junie-nightly-2628.1-macos-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2629.1/junie-nightly-2629.1-macos-aarch64.zip",
             "cmd": "./Applications/junie.app/Contents/MacOS/junie",
             "args": [
               "--acp=true"
             ]
           },
           "darwin-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2628.1/junie-nightly-2628.1-macos-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2629.1/junie-nightly-2629.1-macos-amd64.zip",
             "cmd": "./Applications/junie.app/Contents/MacOS/junie",
             "args": [
               "--acp=true"
             ]
           },
           "linux-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2628.1/junie-nightly-2628.1-linux-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2629.1/junie-nightly-2629.1-linux-aarch64.zip",
             "cmd": "./junie-app/bin/junie",
             "args": [
               "--acp=true"
             ]
           },
           "linux-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2628.1/junie-nightly-2628.1-linux-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2629.1/junie-nightly-2629.1-linux-amd64.zip",
             "cmd": "./junie-app/bin/junie",
             "args": [
               "--acp=true"
             ]
           },
           "windows-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2628.1/junie-nightly-2628.1-windows-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2629.1/junie-nightly-2629.1-windows-amd64.zip",
             "cmd": "./junie/junie.exe",
             "args": [
               "--acp=true"
             ]
           },
           "windows-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2628.1/junie-nightly-2628.1-windows-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2629.1/junie-nightly-2629.1-windows-aarch64.zip",
             "cmd": "./junie/junie.exe",
             "args": [
               "--acp=true"
@@ -1000,7 +1000,7 @@
     {
       "id": "nova",
       "name": "Nova",
-      "version": "1.1.30",
+      "version": "1.1.31",
       "description": "Nova by Compass AI - a fully-fledged software engineer at your command",
       "repository": "https://github.com/Compass-Agentic-Platform/nova",
       "website": "https://www.compassap.ai/portfolio/nova.html",
@@ -1011,7 +1011,7 @@
       "icon": "https://cdn.agentclientprotocol.com/registry/v1/latest/nova.svg",
       "distribution": {
         "npx": {
-          "package": "@compass-ai/nova@1.1.30",
+          "package": "@compass-ai/nova@1.1.31",
           "args": [
             "acp"
           ]
