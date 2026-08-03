@@ -5,7 +5,7 @@ Junie is an AI coding agent that lives in your terminal, integrates with your ID
 
 Learn more at the **[official website](https://junie.jetbrains.com/).**
 
-![Junie CLI Screenshot](./assets/junie-cli.gif)
+![Junie CLI Screenshot](./assets/junie-cli.webp)
 
 ## 🚀 Get started
 
