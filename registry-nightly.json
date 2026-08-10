@@ -581,7 +581,7 @@
     {
       "id": "github-copilot-cli",
       "name": "GitHub Copilot",
-      "version": "1.0.78",
+      "version": "1.0.79",
       "description": "GitHub's AI pair programmer",
       "repository": "https://github.com/github/copilot-cli",
       "website": "https://github.com/features/copilot/cli/",
@@ -591,7 +591,7 @@
       "license": "proprietary",
       "distribution": {
         "npx": {
-          "package": "@github/copilot@1.0.78",
+          "package": "@github/copilot@1.0.79",
           "args": [
             "--acp"
           ]
@@ -697,7 +697,7 @@
     {
       "id": "harn",
       "name": "Harn",
-      "version": "0.10.71",
+      "version": "0.10.72",
       "description": "Harn runs .harn agent pipelines as a native ACP coding agent over stdio.",
       "repository": "https://github.com/burin-labs/harn",
       "website": "https://harnlang.com",
@@ -708,49 +708,49 @@
       "distribution": {
         "binary": {
           "darwin-aarch64": {
-            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.71/harn-aarch64-apple-darwin.tar.gz",
+            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.72/harn-aarch64-apple-darwin.tar.gz",
             "cmd": "./harn",
             "args": [
               "serve",
               "acp"
             ],
-            "sha256": "c2e4ed9661de558d329ee9c5f5a9b51c83743fc9683d265554483f44bb498aae"
+            "sha256": "6d4f7c472a7f656c9bffd4a9b1ed91685baa1f9286b08827792f64cb2a72e76d"
           },
           "darwin-x86_64": {
-            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.71/harn-x86_64-apple-darwin.tar.gz",
+            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.72/harn-x86_64-apple-darwin.tar.gz",
             "cmd": "./harn",
             "args": [
               "serve",
               "acp"
             ],
-            "sha256": "f1dfa9dfddce106bcc7e8976619d4d02ea682aca1481311a8347412e617eba08"
+            "sha256": "bd3a7761990ad1c00d855d95b2a0cd7cfc2f322a17ae312695c289cf3bbd59a3"
           },
           "linux-aarch64": {
-            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.71/harn-aarch64-unknown-linux-gnu.tar.gz",
+            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.72/harn-aarch64-unknown-linux-gnu.tar.gz",
             "cmd": "./harn",
             "args": [
               "serve",
               "acp"
             ],
-            "sha256": "c8e438db501b6f0df5b7205548804441468cb30e474e57e5f5db8000e4a8a095"
+            "sha256": "a07e49b2ce5fae766fb28040d81517703f752d9d31da897551f53bf33a463f8e"
           },
           "linux-x86_64": {
-            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.71/harn-x86_64-unknown-linux-gnu.tar.gz",
+            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.72/harn-x86_64-unknown-linux-gnu.tar.gz",
             "cmd": "./harn",
             "args": [
               "serve",
               "acp"
             ],
-            "sha256": "549b6d15ad0bf97148e057aca4e56133df863e411a78b971eb38e537bb726409"
+            "sha256": "8196946111698edeae7da3c255d92b78d78ef2247955b306bfcd5f33996be932"
           },
           "windows-x86_64": {
-            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.71/harn-x86_64-pc-windows-msvc.zip",
+            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.72/harn-x86_64-pc-windows-msvc.zip",
             "cmd": "harn.exe",
             "args": [
               "serve",
               "acp"
             ],
-            "sha256": "4ee8eaa4023b731387c5ec2232fcfd2c59db629c68ecc695bba8f5a240e6711a"
+            "sha256": "9deed9dc5502f185b2b47a6f8fee85d61a8bebf0e554bf78885c733ead2b1525"
           }
         }
       },
@@ -759,7 +759,7 @@
     {
       "id": "junie",
       "name": "Junie",
-      "version": "2746.1",
+      "version": "2747.1",
       "description": "AI Coding Agent by JetBrains",
       "repository": "https://github.com/JetBrains/junie-acp-release",
       "website": "https://junie.jetbrains.com",
@@ -770,42 +770,42 @@
       "distribution": {
         "binary": {
           "darwin-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2746.1/junie-nightly-2746.1-macos-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2747.1/junie-nightly-2747.1-macos-aarch64.zip",
             "cmd": "./Applications/junie.app/Contents/MacOS/junie",
             "args": [
               "--acp=true"
             ]
           },
           "darwin-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2746.1/junie-nightly-2746.1-macos-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2747.1/junie-nightly-2747.1-macos-amd64.zip",
             "cmd": "./Applications/junie.app/Contents/MacOS/junie",
             "args": [
               "--acp=true"
             ]
           },
           "linux-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2746.1/junie-nightly-2746.1-linux-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2747.1/junie-nightly-2747.1-linux-aarch64.zip",
             "cmd": "./junie-app/bin/junie",
             "args": [
               "--acp=true"
             ]
           },
           "linux-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2746.1/junie-nightly-2746.1-linux-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2747.1/junie-nightly-2747.1-linux-amd64.zip",
             "cmd": "./junie-app/bin/junie",
             "args": [
               "--acp=true"
             ]
           },
           "windows-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2746.1/junie-nightly-2746.1-windows-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2747.1/junie-nightly-2747.1-windows-amd64.zip",
             "cmd": "./junie/junie.exe",
             "args": [
               "--acp=true"
             ]
           },
           "windows-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2746.1/junie-nightly-2746.1-windows-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2747.1/junie-nightly-2747.1-windows-aarch64.zip",
             "cmd": "./junie/junie.exe",
             "args": [
               "--acp=true"
@@ -1188,7 +1188,7 @@
     {
       "id": "qwen-code",
       "name": "Qwen Code",
-      "version": "0.21.8",
+      "version": "0.21.9",
       "description": "Alibaba's Qwen coding assistant",
       "repository": "https://github.com/QwenLM/qwen-code",
       "website": "https://qwenlm.github.io/qwen-code-docs/en/users/overview",
@@ -1198,7 +1198,7 @@
       "license": "Apache-2.0",
       "distribution": {
         "npx": {
-          "package": "@qwen-code/qwen-code@0.21.8",
+          "package": "@qwen-code/qwen-code@0.21.9",
           "args": [
             "--acp",
             "--experimental-skills"
