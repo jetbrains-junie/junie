@@ -697,7 +697,7 @@
     {
       "id": "harn",
       "name": "Harn",
-      "version": "0.10.78",
+      "version": "0.10.79",
       "description": "Harn runs .harn agent pipelines as a native ACP coding agent over stdio.",
       "repository": "https://github.com/burin-labs/harn",
       "website": "https://harnlang.com",
@@ -708,49 +708,49 @@
       "distribution": {
         "binary": {
           "darwin-aarch64": {
-            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.78/harn-aarch64-apple-darwin.tar.gz",
+            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.79/harn-aarch64-apple-darwin.tar.gz",
             "cmd": "./harn",
             "args": [
               "serve",
               "acp"
             ],
-            "sha256": "2e9016cf362c99fe32181011321c99e0d51602b571ffb4c8205ac2d6c02f7c73"
+            "sha256": "14301dd598b19876126926c111a84cc86f75bf5187ff80e75a4413de72f1440d"
           },
           "darwin-x86_64": {
-            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.78/harn-x86_64-apple-darwin.tar.gz",
+            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.79/harn-x86_64-apple-darwin.tar.gz",
             "cmd": "./harn",
             "args": [
               "serve",
               "acp"
             ],
-            "sha256": "2cd963fd15ba67d003d9d3af10020c39b4e1064dfefd260e0283a16dd371ea08"
+            "sha256": "a7250b8ff7e0859ef856807fb52d69fc3b648a1b6ea740cc8ebe12c4fa1cde79"
           },
           "linux-aarch64": {
-            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.78/harn-aarch64-unknown-linux-gnu.tar.gz",
+            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.79/harn-aarch64-unknown-linux-gnu.tar.gz",
             "cmd": "./harn",
             "args": [
               "serve",
               "acp"
             ],
-            "sha256": "2688f4e0996e4c986551917e3dc8360738f5551fd822a6f8cbeac43c6bc03db4"
+            "sha256": "4127d7dbb77bf17aa6b9a69f23ed5d68515032f2416ba90399b21e69c39b55e5"
           },
           "linux-x86_64": {
-            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.78/harn-x86_64-unknown-linux-gnu.tar.gz",
+            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.79/harn-x86_64-unknown-linux-gnu.tar.gz",
             "cmd": "./harn",
             "args": [
               "serve",
               "acp"
             ],
-            "sha256": "54580176b3d6ba87839fbd189ba19a5e167f564450b8387b378aec0bca0207ca"
+            "sha256": "639b831856bf580cf7edfcd1e61bf3f490d6a13d2e206f0e5ed053269475c468"
           },
           "windows-x86_64": {
-            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.78/harn-x86_64-pc-windows-msvc.zip",
+            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.79/harn-x86_64-pc-windows-msvc.zip",
             "cmd": "harn.exe",
             "args": [
               "serve",
               "acp"
             ],
-            "sha256": "ce1f42495ad0f463c12817ede9fadf34149492048c58062ceea3856cb422f951"
+            "sha256": "8c0e5cfe0bbb2a7c550f828c18c11045b247a9536c0298771fcee61628eb1b7b"
           }
         }
       },
@@ -759,7 +759,7 @@
     {
       "id": "junie",
       "name": "Junie",
-      "version": "2753.1",
+      "version": "2754.1",
       "description": "AI Coding Agent by JetBrains",
       "repository": "https://github.com/JetBrains/junie-acp-release",
       "website": "https://junie.jetbrains.com",
@@ -770,42 +770,42 @@
       "distribution": {
         "binary": {
           "darwin-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2753.1/junie-nightly-2753.1-macos-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2754.1/junie-nightly-2754.1-macos-aarch64.zip",
             "cmd": "./Applications/junie.app/Contents/MacOS/junie",
             "args": [
               "--acp=true"
             ]
           },
           "darwin-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2753.1/junie-nightly-2753.1-macos-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2754.1/junie-nightly-2754.1-macos-amd64.zip",
             "cmd": "./Applications/junie.app/Contents/MacOS/junie",
             "args": [
               "--acp=true"
             ]
           },
           "linux-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2753.1/junie-nightly-2753.1-linux-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2754.1/junie-nightly-2754.1-linux-aarch64.zip",
             "cmd": "./junie-app/bin/junie",
             "args": [
               "--acp=true"
             ]
           },
           "linux-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2753.1/junie-nightly-2753.1-linux-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2754.1/junie-nightly-2754.1-linux-amd64.zip",
             "cmd": "./junie-app/bin/junie",
             "args": [
               "--acp=true"
             ]
           },
           "windows-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2753.1/junie-nightly-2753.1-windows-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2754.1/junie-nightly-2754.1-windows-amd64.zip",
             "cmd": "./junie/junie.exe",
             "args": [
               "--acp=true"
             ]
           },
           "windows-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2753.1/junie-nightly-2753.1-windows-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2754.1/junie-nightly-2754.1-windows-aarch64.zip",
             "cmd": "./junie/junie.exe",
             "args": [
               "--acp=true"
