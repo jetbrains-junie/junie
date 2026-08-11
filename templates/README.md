@@ -40,6 +40,27 @@ For each row in `channels.tsv`:
 - `release`      → `install.sh`, `install.ps1`
 - `<name>` else → `install-<name>.sh`, `install-<name>.ps1`
 
+## Local model setup
+
+`install.sh` and `install-nightly.sh` accept `--local-model`. With it, once Junie
+is installed the installer fetches and runs the
+[junie-local](https://github.com/JetBrains-Hardware/junie-local) installer,
+which downloads the inference engine and model weights:
+
+```sh
+curl -fsSL https://junie.jetbrains.com/install.sh | bash -s -- --local-model
+```
+
+The local model requires macOS 26+ on Apple Silicon; the junie-local installer
+runs its own preflight checks and reports what is missing. If it fails, Junie
+itself is still installed and the installer exits non-zero with a retry hint.
+
+The flag is scoped to the release and nightly channels via
+`{{#channels:release,nightly}}` blocks in `install.sh.template`, so `install-eap.sh`
+and `install-experimental.sh` do not parse or offer it. There is no PowerShell
+equivalent either — the local model is macOS-only, so `install*.ps1` takes no
+such flag.
+
 ## One-shot channel switching
 
 The shim supports `junie --<channel>` (`--eap`, `--nightly`, `--release`,
