@@ -127,7 +127,7 @@
     {
       "id": "cline",
       "name": "Cline",
-      "version": "3.0.52",
+      "version": "3.0.53",
       "description": "Autonomous coding agent CLI - capable of creating/editing files, running commands, using the browser, and more",
       "repository": "https://github.com/cline/cline",
       "website": "https://cline.bot/cli",
@@ -138,7 +138,7 @@
       "icon": "https://cdn.agentclientprotocol.com/registry/v1/latest/cline.svg",
       "distribution": {
         "npx": {
-          "package": "cline@3.0.52",
+          "package": "cline@3.0.53",
           "args": [
             "--acp"
           ]
@@ -676,7 +676,7 @@
     {
       "id": "grok-build",
       "name": "Grok Build",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "description": "xAI's coding agent and CLI",
       "website": "https://x.ai/cli",
       "authors": [
@@ -685,7 +685,7 @@
       "license": "proprietary",
       "distribution": {
         "npx": {
-          "package": "@xai-official/grok@1.0.1",
+          "package": "@xai-official/grok@1.0.2",
           "args": [
             "agent",
             "stdio"
@@ -697,7 +697,7 @@
     {
       "id": "harn",
       "name": "Harn",
-      "version": "0.10.81",
+      "version": "0.10.82",
       "description": "Harn runs .harn agent pipelines as a native ACP coding agent over stdio.",
       "repository": "https://github.com/burin-labs/harn",
       "website": "https://harnlang.com",
@@ -708,49 +708,49 @@
       "distribution": {
         "binary": {
           "darwin-aarch64": {
-            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.81/harn-aarch64-apple-darwin.tar.gz",
+            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.82/harn-aarch64-apple-darwin.tar.gz",
             "cmd": "./harn",
             "args": [
               "serve",
               "acp"
             ],
-            "sha256": "0c8eeb4656a6bd87ef821bf8dab976b48deb28e0c1b45d12482df75db0861d7a"
+            "sha256": "879d426fedd10ec1ebb5ad0922bb92f582fa022875848809fb08dbdbcaeb26fe"
           },
           "darwin-x86_64": {
-            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.81/harn-x86_64-apple-darwin.tar.gz",
+            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.82/harn-x86_64-apple-darwin.tar.gz",
             "cmd": "./harn",
             "args": [
               "serve",
               "acp"
             ],
-            "sha256": "093685c0a62eabdd50e18a008322c8c3a7f73e06fd124b2336599f355e6dbc59"
+            "sha256": "7b46482092e7144f7bb51f88e8cbc255e8018a217145c6b93a7a5374ddc1bf3b"
           },
           "linux-aarch64": {
-            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.81/harn-aarch64-unknown-linux-gnu.tar.gz",
+            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.82/harn-aarch64-unknown-linux-gnu.tar.gz",
             "cmd": "./harn",
             "args": [
               "serve",
               "acp"
             ],
-            "sha256": "a06a2648cea579b08cd526ebef88b9b9c2422139b786bb9e4921202230a7b754"
+            "sha256": "3eb7b756e8e41b941552022e3597fa41d80433e5025c41b98b77b1693f9c310a"
           },
           "linux-x86_64": {
-            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.81/harn-x86_64-unknown-linux-gnu.tar.gz",
+            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.82/harn-x86_64-unknown-linux-gnu.tar.gz",
             "cmd": "./harn",
             "args": [
               "serve",
               "acp"
             ],
-            "sha256": "75f5a364e2d80da6a45caae4bfe6aef0e0fee745674fe4a9d08b29cdc43f9885"
+            "sha256": "be5ee75c236f5ce3408a9f2937dca1e128ff1c665e522d3d8c6465eca26f8783"
           },
           "windows-x86_64": {
-            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.81/harn-x86_64-pc-windows-msvc.zip",
+            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.82/harn-x86_64-pc-windows-msvc.zip",
             "cmd": "harn.exe",
             "args": [
               "serve",
               "acp"
             ],
-            "sha256": "841d9a2c8320c60b37a1eb4cbe8e9fce91617d225e238678f54d9d355edd2798"
+            "sha256": "b6388213f5efa65447412de366ac2072a5637c676f98588a4f062500efc9b230"
           }
         }
       },
@@ -759,7 +759,7 @@
     {
       "id": "junie",
       "name": "Junie",
-      "version": "2787.1",
+      "version": "2788.1",
       "description": "AI Coding Agent by JetBrains",
       "repository": "https://github.com/JetBrains/junie-acp-release",
       "website": "https://junie.jetbrains.com",
@@ -770,42 +770,42 @@
       "distribution": {
         "binary": {
           "darwin-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2787.1/junie-nightly-2787.1-macos-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2788.1/junie-nightly-2788.1-macos-aarch64.zip",
             "cmd": "./Applications/junie.app/Contents/MacOS/junie",
             "args": [
               "--acp=true"
             ]
           },
           "darwin-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2787.1/junie-nightly-2787.1-macos-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2788.1/junie-nightly-2788.1-macos-amd64.zip",
             "cmd": "./Applications/junie.app/Contents/MacOS/junie",
             "args": [
               "--acp=true"
             ]
           },
           "linux-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2787.1/junie-nightly-2787.1-linux-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2788.1/junie-nightly-2788.1-linux-aarch64.zip",
             "cmd": "./junie-app/bin/junie",
             "args": [
               "--acp=true"
             ]
           },
           "linux-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2787.1/junie-nightly-2787.1-linux-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2788.1/junie-nightly-2788.1-linux-amd64.zip",
             "cmd": "./junie-app/bin/junie",
             "args": [
               "--acp=true"
             ]
           },
           "windows-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2787.1/junie-nightly-2787.1-windows-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2788.1/junie-nightly-2788.1-windows-amd64.zip",
             "cmd": "./junie/junie.exe",
             "args": [
               "--acp=true"
             ]
           },
           "windows-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2787.1/junie-nightly-2787.1-windows-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2788.1/junie-nightly-2788.1-windows-aarch64.zip",
             "cmd": "./junie/junie.exe",
             "args": [
               "--acp=true"
