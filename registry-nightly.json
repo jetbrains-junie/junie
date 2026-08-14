@@ -762,7 +762,7 @@
     {
       "id": "junie",
       "name": "Junie",
-      "version": "2862.1",
+      "version": "2863.1",
       "description": "AI Coding Agent by JetBrains",
       "repository": "https://github.com/JetBrains/junie-acp-release",
       "website": "https://junie.jetbrains.com",
@@ -773,42 +773,42 @@
       "distribution": {
         "binary": {
           "darwin-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2862.1/junie-nightly-2862.1-macos-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2863.1/junie-nightly-2863.1-macos-aarch64.zip",
             "cmd": "./Applications/junie.app/Contents/MacOS/junie",
             "args": [
               "--acp=true"
             ]
           },
           "darwin-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2862.1/junie-nightly-2862.1-macos-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2863.1/junie-nightly-2863.1-macos-amd64.zip",
             "cmd": "./Applications/junie.app/Contents/MacOS/junie",
             "args": [
               "--acp=true"
             ]
           },
           "linux-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2862.1/junie-nightly-2862.1-linux-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2863.1/junie-nightly-2863.1-linux-aarch64.zip",
             "cmd": "./junie-app/bin/junie",
             "args": [
               "--acp=true"
             ]
           },
           "linux-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2862.1/junie-nightly-2862.1-linux-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2863.1/junie-nightly-2863.1-linux-amd64.zip",
             "cmd": "./junie-app/bin/junie",
             "args": [
               "--acp=true"
             ]
           },
           "windows-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2862.1/junie-nightly-2862.1-windows-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2863.1/junie-nightly-2863.1-windows-amd64.zip",
             "cmd": "./junie/junie.exe",
             "args": [
               "--acp=true"
             ]
           },
           "windows-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2862.1/junie-nightly-2862.1-windows-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2863.1/junie-nightly-2863.1-windows-aarch64.zip",
             "cmd": "./junie/junie.exe",
             "args": [
               "--acp=true"
@@ -1003,7 +1003,7 @@
     {
       "id": "nova",
       "name": "Nova",
-      "version": "1.1.34",
+      "version": "1.1.35",
       "description": "Nova by Compass AI - a fully-fledged software engineer at your command",
       "repository": "https://github.com/Compass-Agentic-Platform/nova",
       "website": "https://www.compassap.ai/portfolio/nova.html",
@@ -1014,7 +1014,7 @@
       "icon": "https://cdn.agentclientprotocol.com/registry/v1/latest/nova.svg",
       "distribution": {
         "npx": {
-          "package": "@compass-ai/nova@1.1.34",
+          "package": "@compass-ai/nova@1.1.35",
           "args": [
             "acp"
           ]
