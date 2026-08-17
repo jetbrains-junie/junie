@@ -42,24 +42,27 @@ For each row in `channels.tsv`:
 
 ## Local model setup
 
-`install.sh` and `install-nightly.sh` accept `--local-model`. With it, once Junie
-is installed the installer fetches and runs the
-[junie-local](https://github.com/JetBrains-Hardware/junie-local) installer,
-which downloads the inference engine and model weights:
+Every `install*.sh` accepts `--local-model`. With it, once Junie is installed the
+installer fetches and runs `local/install.sh` from this repository, which
+downloads the inference engine and model weights, writes the Junie model config,
+and starts the engine:
 
 ```sh
 curl -fsSL https://junie.jetbrains.com/install.sh | bash -s -- --local-model
 ```
 
-The local model requires macOS 26+ on Apple Silicon; the junie-local installer
-runs its own preflight checks and reports what is missing. If it fails, Junie
-itself is still installed and the installer exits non-zero with a retry hint.
+`LOCAL_MODEL_URL` in `install.sh.template` points at
+`raw.githubusercontent.com/jetbrains-junie/junie/main/local/install.sh` — the
+same host, repo, and branch as the `channels.tsv` update-info URLs. Note that
+`junie.jetbrains.com` cannot be used here: it ignores the path and redirects
+every request to the Junie installer itself.
 
-The flag is scoped to the release and nightly channels via
-`{{#channels:release,nightly}}` blocks in `install.sh.template`, so `install-eap.sh`
-and `install-experimental.sh` do not parse or offer it. There is no PowerShell
-equivalent either — the local model is macOS-only, so `install*.ps1` takes no
-such flag.
+The local model requires macOS 26+ on Apple Silicon; `local/install.sh` runs its
+own preflight checks and reports what is missing. If it fails, Junie itself is
+still installed and the installer exits non-zero with a retry hint.
+
+There is no PowerShell equivalent — the local model is macOS-only, so
+`install*.ps1` takes no such flag.
 
 ## One-shot channel switching
 

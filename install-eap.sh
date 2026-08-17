@@ -7,6 +7,9 @@
 # To install a specific version:
 #   curl -fsSL https://junie.jetbrains.com/install.sh | JUNIE_VERSION=656.1 bash
 #
+# To also set up the local model after installing Junie:
+#   curl -fsSL https://junie.jetbrains.com/install.sh | bash -s -- --local-model
+#
 
 set -euo pipefail
 
@@ -16,6 +19,7 @@ INSTALL_TAG="<install_tag>"
 GITHUB_RELEASES="https://github.com/jetbrains-junie/junie/releases"
 JUNIE_BIN="$HOME/.local/bin"
 JUNIE_DATA="$HOME/.local/share/junie"
+LOCAL_MODEL_URL="https://raw.githubusercontent.com/jetbrains-junie/junie/main/local/install.sh"
 
 # One-shot mode (set by the shim for `junie --<channel>`): install/refresh this
 # channel's latest build but do NOT touch the existing shim, the `current`
@@ -25,6 +29,31 @@ ONESHOT="${JUNIE_ONESHOT:-}"
 
 log() { echo "[Junie] $*"; }
 log_error() { echo "[Junie] ERROR: $*" >&2; }
+
+usage() {
+  echo "Usage: install.sh [--local-model]"
+  echo ""
+  echo "Options:"
+  echo "  --local-model   After installing Junie, run the local model setup"
+  echo "  --help, -h      Show this help"
+}
+
+# `--local-model` requests the local model setup once Junie itself is in place.
+# Piped invocations pass it through bash: `curl ... | bash -s -- --local-model`.
+LOCAL_MODEL=""
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --local-model) LOCAL_MODEL=1 ;;
+    --help|-h)     usage; exit 0 ;;
+    *)
+      log_error "Unknown option: $1"
+      usage >&2
+      exit 1
+      ;;
+  esac
+  shift
+done
 
 # Ensure the required archive extractor is available before we start downloading
 # anything. We fail early with an actionable, OS-aware install hint so users on
@@ -140,6 +169,21 @@ fetch_version_sha256() {
   [[ -z "$entry" ]] && return 0
 
   echo "$entry" | grep -o '"sha256":"[^"]*"' | sed 's/"sha256":"\([^"]*\)"/\1/'
+}
+
+# Run local/install.sh, which downloads the inference engine and model weights,
+# writes the Junie model config, and starts the engine. It has its own preflight
+# checks and reports its own progress, so we only announce the handover and
+# surface a retry hint on failure.
+install_local_model() {
+  echo ""
+  log "Junie is installed. Setting up the local model..."
+  echo ""
+  if ! curl -fsSL "$LOCAL_MODEL_URL" | bash; then
+    log_error "Local model setup failed. Junie itself is installed and usable."
+    log_error "To retry: curl -fsSL $LOCAL_MODEL_URL | bash"
+    exit 1
+  fi
 }
 
 # Detect platform
@@ -1064,4 +1108,8 @@ else
   echo '  export PATH="$HOME/.local/bin:$PATH"'
   echo ""
   echo "Then run: junie --help"
+fi
+
+if [[ -n "$LOCAL_MODEL" ]]; then
+  install_local_model
 fi

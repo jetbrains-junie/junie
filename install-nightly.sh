@@ -19,7 +19,7 @@ INSTALL_TAG="<install_tag>"
 GITHUB_RELEASES="https://github.com/jetbrains-junie/junie/releases"
 JUNIE_BIN="$HOME/.local/bin"
 JUNIE_DATA="$HOME/.local/share/junie"
-LOCAL_MODEL_URL="https://raw.githubusercontent.com/JetBrains-Hardware/junie-local/refs/heads/main/install.sh"
+LOCAL_MODEL_URL="https://raw.githubusercontent.com/jetbrains-junie/junie/main/local/install.sh"
 
 # One-shot mode (set by the shim for `junie --<channel>`): install/refresh this
 # channel's latest build but do NOT touch the existing shim, the `current`
@@ -171,9 +171,10 @@ fetch_version_sha256() {
   echo "$entry" | grep -o '"sha256":"[^"]*"' | sed 's/"sha256":"\([^"]*\)"/\1/'
 }
 
-# Run the local model installer (junie-local), which downloads the inference
-# engine and model weights. It has its own preflight checks and reports its own
-# progress, so we only announce the handover and surface a retry hint on failure.
+# Run local/install.sh, which downloads the inference engine and model weights,
+# writes the Junie model config, and starts the engine. It has its own preflight
+# checks and reports its own progress, so we only announce the handover and
+# surface a retry hint on failure.
 install_local_model() {
   echo ""
   log "Junie is installed. Setting up the local model..."

@@ -2,7 +2,6 @@
 #
 # Regression test: the `--local-model` flag must be accepted, unknown flags must
 # be rejected, and the local model setup must run only when the flag is given.
-# Only the release and nightly installers carry the flag.
 #
 # Usage:
 #   bash tests/install_local_model.sh
@@ -14,20 +13,20 @@ REPO_ROOT="$(dirname "$SCRIPT_DIR")"
 
 INSTALLERS=(
   "install.sh"
+  "install-eap.sh"
   "install-nightly.sh"
+  "install-experimental.sh"
 )
 
-# Channels that must not offer the local model setup.
+# The local model is macOS-only, so the PowerShell installers must not offer it.
 INSTALLERS_WITHOUT_LOCAL_MODEL=(
-  "install-eap.sh"
-  "install-experimental.sh"
   "install.ps1"
   "install-eap.ps1"
   "install-nightly.ps1"
   "install-experimental.ps1"
 )
 
-LOCAL_MODEL_URL="https://raw.githubusercontent.com/JetBrains-Hardware/junie-local/refs/heads/main/install.sh"
+LOCAL_MODEL_URL="https://raw.githubusercontent.com/jetbrains-junie/junie/main/local/install.sh"
 
 PASS=0
 FAIL=0
@@ -78,7 +77,14 @@ for name in "${INSTALLERS[@]}"; do
     fail "$name" "unknown flag: expected status 1 and an error, got status $status: $output"
   fi
 
-  # install_local_model fetches the junie-local installer and runs it.
+  # The installer fetches the local model installer kept in this repo.
+  installer_url="$(sed -n 's/^LOCAL_MODEL_URL="\(.*\)"$/\1/p' "$installer")"
+  if [[ "$installer_url" == "$LOCAL_MODEL_URL" ]]; then
+    pass "$name" "points at the in-repo local installer"
+  else
+    fail "$name" "LOCAL_MODEL_URL: expected $LOCAL_MODEL_URL, got ${installer_url:-<unset>}"
+  fi
+
   function_src="$(extract "$installer" '^install_local_model() {$' '^}$')"
   if [[ -z "$function_src" ]]; then
     fail "$name" "install_local_model function not found"
@@ -86,7 +92,7 @@ for name in "${INSTALLERS[@]}"; do
   fi
 
   observed="$(
-    LOCAL_MODEL_URL="$LOCAL_MODEL_URL"
+    LOCAL_MODEL_URL="$installer_url"
     log() { :; }
     log_error() { :; }
     curl() { printf 'url=%s\n' "${*: -1}"; }
@@ -95,14 +101,14 @@ for name in "${INSTALLERS[@]}"; do
     install_local_model
   )"
   if [[ "$observed" == *"url=$LOCAL_MODEL_URL"* ]]; then
-    pass "$name" "install_local_model runs the junie-local installer"
+    pass "$name" "install_local_model runs the local model installer"
   else
     fail "$name" "install_local_model: expected a fetch of $LOCAL_MODEL_URL, got: $observed"
   fi
 
   # A failing local model setup fails the installer and prints a retry hint.
   observed="$(
-    LOCAL_MODEL_URL="$LOCAL_MODEL_URL"
+    LOCAL_MODEL_URL="$installer_url"
     log() { :; }
     log_error() { printf '%s\n' "$*"; }
     curl() { :; }
@@ -145,12 +151,20 @@ for name in "${INSTALLERS_WITHOUT_LOCAL_MODEL[@]}"; do
     continue
   fi
 
-  if traces="$(grep -niE 'local.model|junie-local' "$installer")"; then
+  if traces="$(grep -niE 'local.model|local/install\.sh' "$installer")"; then
     fail "$name" "must not reference the local model setup: $traces"
   else
     pass "$name" "no local model setup"
   fi
 done
+
+# The URL the installers fetch must resolve to a script that exists in the repo.
+local_script="${LOCAL_MODEL_URL##*/main/}"
+if [[ -x "$REPO_ROOT/$local_script" ]]; then
+  pass "$local_script" "present and executable"
+else
+  fail "$local_script" "installers fetch it, but it is missing or not executable"
+fi
 
 echo "----"
 echo "PASS: $PASS  FAIL: $FAIL"
