@@ -100,10 +100,10 @@ ENGINE_MODEL_NAME="$MODEL_ID_1"
 
 # Inference engine release. Versions are unpacked side by side under versions/
 # and the current symlink points at the one to run.
-ENGINE_VERSION="0.2.1"
-ENGINE_ARCHIVE="junie-mlx-vlm-0.2.1-macos-arm64.tar.gz"
-ENGINE_URL="https://cache-redirector.jetbrains.com/github.com/JetBrains-Hardware/junie-local/releases/download/v0.2.1/$ENGINE_ARCHIVE"
-ENGINE_SHA256="6cf70ca322e01a7dd9a3ccaa5490aba64b2927008661f0eb67af7e50ded7c25f"
+ENGINE_VERSION="0.2.2"
+ENGINE_ARCHIVE="junie-mlx-vlm-0.2.2-macos-arm64.tar.gz"
+ENGINE_URL="https://cache-redirector.jetbrains.com/github.com/JetBrains-Hardware/junie-local/releases/download/v0.2.2/$ENGINE_ARCHIVE"
+ENGINE_SHA256="21181744477202f37caed57874ae2bbb5c083816ae084553b1fba3dd978c5763"
 ENGINE_LABEL="inference engine"
 VERSIONS_DIR="$BASE_DIR/versions"
 ENGINE_DIR="$VERSIONS_DIR/$ENGINE_VERSION"
@@ -1019,7 +1019,7 @@ start_engine() {
   if [ -f "$ENGINE_CTL" ]; then
     waited=0
     while [ "$waited" -lt 30 ]; do
-      phase=$(curl -s -m 5 "http://localhost:$ENGINE_PORT/status" 2>/dev/null \
+      phase=$(curl -s -m 5 -H "Authorization: Bearer $AUTH_TOKEN" "http://localhost:$ENGINE_PORT/status" 2>/dev/null \
         | plutil -extract phase raw -o - -- - 2>/dev/null || true)
       if [ "$phase" = "ready" ]; then
         echo "  Engine is ready on port $ENGINE_PORT."
