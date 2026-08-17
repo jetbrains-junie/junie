@@ -17,7 +17,7 @@ usage() {
   echo ""
   echo "Options:"
   echo "  --model <name>     Model to install: qwen3.6 (default) or qwen3.8"
-  echo "  --check-only       Report system information and install configuration, then exit"
+  echo "  --check-only       Report system information, then exit"
   echo "  --json             Emit machine-readable events on stdout, human output on stderr"
   echo "  --keep-config      Preserve the existing server-config.json instead of removing it"
   echo "  --help, -h         Show this help"
@@ -199,9 +199,12 @@ check_status() {
 
 emit_event "\"event\":\"hello\",\"protocol\":$PROTOCOL_VERSION"
 
-# Helper: wait for user to press any key, then exit
+# Helper: wait for user to press any key, then exit. Only a standalone run on a
+# terminal has someone to wait for: piped into a shell (`curl ... | sh`) stdin is
+# this script's own source, so the read returns at once and the prompt is noise.
 wait_and_exit() {
-  if [ "$MACHINE_OUTPUT" != true ]; then
+  show_cursor
+  if [ "$MACHINE_OUTPUT" != true ] && [ -t 0 ]; then
     echo ""
     echo "Press any key to exit..."
     # If read fails, still exit with the intended code (not read's status)
@@ -209,6 +212,519 @@ wait_and_exit() {
   fi
   exit "$1"
 }
+
+# --- junie-ui:begin ---
+# Presentation layer: the Junie logo, section headings, checked values, and
+# downloads/extractions with a progress bar. Everything degrades to plain lines
+# when stdout is not a terminal, CI=true, JUNIE_NO_ANIM=1, or --json is in
+# effect, so piped, logged and machine-consumed runs stay readable.
+#
+# The block stands on its own so preview.sh can source it straight out of this
+# file. The event emitters live above it; when the block is sourced by itself
+# they are absent, so a stub keeps the download and extraction loops working.
+MACHINE_OUTPUT="${MACHINE_OUTPUT:-false}"
+if ! command -v emit_progress > /dev/null 2>&1; then
+  emit_progress() { :; }
+  emit_error() { :; }
+fi
+
+ESC=$(printf '\033')
+CSI="${ESC}["
+RESET="${CSI}0m"
+BOLD="${CSI}1m"
+HIDE_CURSOR="${CSI}?25l"
+SHOW_CURSOR="${CSI}?25h"
+CLEAR_RIGHT="${CSI}0K"
+
+# Brand colors, same values the Junie CLI uses for its logo and progress.
+JUNIE_GREEN="${CSI}38;2;72;224;84m"
+JUNIE_GREEN_DIM="${CSI}38;2;36;110;42m"
+GRAY="${CSI}38;2;150;150;150m"
+GRAY_DIM="${CSI}38;2;92;92;92m"
+RED="${CSI}38;2;255;107;107m"
+YELLOW="${CSI}38;2;255;199;89m"
+GREEN="$JUNIE_GREEN"
+NC="$RESET"
+
+# Cursor moves and a redrawn progress line need a real terminal.
+INTERACTIVE=true
+if [ ! -t 1 ] || [ "${CI:-}" = "true" ] || [ "${JUNIE_NO_ANIM:-}" = "1" ] \
+   || [ "$MACHINE_OUTPUT" = true ]; then
+  INTERACTIVE=false
+fi
+
+# Escape sequences only mean anything on a terminal. A piped or captured run
+# gets plain text, and with --json the human stream is a log for whoever
+# launched us, so it stays clean too and progress travels as events instead.
+if [ ! -t 1 ] || [ "$MACHINE_OUTPUT" = true ]; then
+  RESET=''
+  BOLD=''
+  HIDE_CURSOR=''
+  SHOW_CURSOR=''
+  CLEAR_RIGHT=''
+  JUNIE_GREEN=''
+  JUNIE_GREEN_DIM=''
+  GRAY=''
+  GRAY_DIM=''
+  RED=''
+  YELLOW=''
+  GREEN=''
+  NC=''
+fi
+
+TERM_COLS=$(tput cols 2>/dev/null || echo 80)
+
+show_cursor() {
+  if [ "$INTERACTIVE" = true ]; then
+    printf '%s' "$SHOW_CURSOR"
+  fi
+  return 0
+}
+
+# The Junie J and wordmark, character-for-character the same art as the CLI.
+LOGO_ART='       ///////       |       ///////       |       ///////       |///////      /////// |///////      /////// |///////     //////// |       ///////////   |       /////////     |       //////        '
+WORDMARK_ART='      ///                           ///              |      ///                           ///              |      ///  ///     ///  /////////         ///////    |      ///  ///     ///  //////////  ///  //////////  |      ///  ///     ///  ///     /// /// ///     //// |      ///  ///     ///  ///     /// /// //////////// |      ///  ///    ////  ///     /// /// ///          | ////////  //////////   ///     /// ///  /////////// | //////     ////////    ///     /// ///   ////////   '
+
+# Prints the logo. The wordmark is dropped on narrow terminals, matching the
+# CLI's 80-column cutoff. With --json the caller draws its own interface, so the
+# art would only clutter the log it collects.
+junie_logo() {
+  if [ "$MACHINE_OUTPUT" = true ]; then
+    return 0
+  fi
+  logo_wordmark="$WORDMARK_ART"
+  if [ "$TERM_COLS" -lt 80 ]; then
+    logo_wordmark=""
+  fi
+  printf '\n'
+  awk -v logo="$LOGO_ART" -v mark="$logo_wordmark" \
+      -v green="$JUNIE_GREEN" -v reset="$RESET" -v bold="$BOLD" '
+    BEGIN {
+      rows = split(logo, logoline, "|")
+      if (mark != "") split(mark, markline, "|")
+      for (y = 1; y <= rows; y++) {
+        out = "  " green bold logoline[y] reset
+        if (mark != "") out = out "  " bold markline[y] reset
+        print out
+      }
+    }'
+  printf '\n'
+  return 0
+}
+
+# A section heading with an underline as wide as its title.
+section() {
+  printf '\n  %s%s%s%s\n' "$JUNIE_GREEN" "$BOLD" "$1" "$RESET"
+  awk -v n="${#1}" -v c="$GRAY_DIM" -v r="$RESET" \
+    'BEGIN { s = ""; for (i = 0; i < n; i++) s = s "─"; print "  " c s r }'
+  printf '\n'
+  return 0
+}
+
+# Helper: print a value in green if ok, yellow if warning, red if not ok
+print_value() {
+  label="$1"
+  value="$2"
+  ok="$3"
+  warn="$4"
+  requirement="$5"
+  if [ "$ok" = true ] && [ "$warn" = false ]; then
+    printf "  %s%-20s%s ${GREEN}%s${NC}\n" "$GRAY" "$label" "$RESET" "$value"
+  elif [ "$warn" = true ]; then
+    printf "  %s%-20s%s ${YELLOW}%s${NC}  %s(%s)%s\n" "$GRAY" "$label" "$RESET" "$value" "$GRAY_DIM" "$requirement" "$RESET"
+  else
+    printf "  %s%-20s%s ${RED}%s${NC}  %s(requirement: %s)%s\n" "$GRAY" "$label" "$RESET" "$value" "$GRAY_DIM" "$requirement" "$RESET"
+  fi
+}
+
+# Bytes as a human-readable size, e.g. 6.1 GB.
+human_bytes() {
+  awk -v b="$1" 'BEGIN {
+    if (b >= 1073741824) printf "%.1f GB", b / 1073741824
+    else if (b >= 1048576) printf "%.1f MB", b / 1048576
+    else if (b >= 1024) printf "%.0f KB", b / 1024
+    else printf "%d B", b
+  }'
+}
+
+BAR_WIDTH=32
+PROGRESS_DREW=false
+PROGRESS_LOGGED=-1
+
+# Draws the progress bar: one line, redrawn in place with a carriage return.
+# It must never wrap -- a wrapped line puts the cursor on a row the carriage
+# return cannot reach, and every frame would then leave its own leftovers on
+# screen -- so the label, the ETA and the speed are dropped, in that order, until
+# the line fits the terminal, and the bar itself shrinks if that is still not
+# enough. Off a terminal the numbers are logged once per 10% instead, and with
+# --json nothing is drawn at all because the progress events carry it.
+# Usage: progress_render <have-bytes> <total-bytes|0> <bytes-per-second> <label>
+progress_render() {
+  if [ "$MACHINE_OUTPUT" = true ]; then
+    return 0
+  fi
+  if [ "$INTERACTIVE" != true ]; then
+    if [ "$2" -gt 0 ]; then
+      progress_step=$(( $1 * 10 / $2 ))
+      if [ "$progress_step" -gt "$PROGRESS_LOGGED" ]; then
+        PROGRESS_LOGGED=$progress_step
+        printf '  %d%% (%s of %s)\n' "$(( progress_step * 10 ))" "$(human_bytes "$1")" "$(human_bytes "$2")"
+      fi
+    fi
+    return 0
+  fi
+  PROGRESS_DREW=true
+
+  awk -v have="$1" -v total="$2" -v bps="$3" -v label="$4" \
+      -v width="$BAR_WIDTH" -v cols="$TERM_COLS" -v clr="$CLEAR_RIGHT" \
+      -v green="$JUNIE_GREEN" -v dim="$JUNIE_GREEN_DIM" -v gray="$GRAY" \
+      -v graydim="$GRAY_DIM" -v reset="$RESET" '
+    function human(b) {
+      if (b >= 1073741824) return sprintf("%.1f GB", b / 1073741824)
+      if (b >= 1048576) return sprintf("%.1f MB", b / 1048576)
+      if (b >= 1024) return sprintf("%.0f KB", b / 1024)
+      return sprintf("%d B", b)
+    }
+    BEGIN {
+      ratio = total > 0 ? have / total : 0
+      if (ratio > 1) ratio = 1
+
+      # Every field is padded to a width that does not depend on the current
+      # value, so the numbers do not shift as they grow and the fitting decision
+      # below lands the same way on every frame. Deciding from the raw values
+      # would make the ETA blink in and out whenever a size gained a digit.
+      size_w = length(human(total))
+      if (size_w < 9) size_w = 9
+      pct_s = total > 0 ? sprintf("%3d%%", int(ratio * 100)) : ""
+      size_s = total > 0 ? sprintf("%*s of %s", size_w, human(have), human(total)) \
+                         : sprintf("%*s", size_w, human(have))
+      speed_s = bps > 0 ? sprintf("%9s/s", human(bps)) : sprintf("%11s", "")
+      if (bps > 0 && total > have) {
+        eta_secs = int((total - have) / bps)
+        eta_s = sprintf("eta %3d:%02d", eta_secs / 60, eta_secs % 60)
+      } else {
+        eta_s = sprintf("%9s", "")
+      }
+
+      # Two leading spaces, the bar, two spaces, then as many fields as fit on
+      # the line. The label is dropped first, then the ETA, then the speed, and
+      # the bar shrinks if even that is not enough.
+      stats = pct_s (pct_s == "" ? "" : "  ") size_s
+      show_speed = 1
+      show_eta = total > 0
+      while (1) {
+        tail = show_speed ? "  " speed_s : ""
+        if (show_eta) tail = tail "  " eta_s
+        if (2 + width + 2 + length(stats tail) + (label != "" ? 2 + length(label) : 0) <= cols - 1) break
+        if (label != "") { label = ""; continue }
+        if (show_eta) { show_eta = 0; continue }
+        if (show_speed) { show_speed = 0; continue }
+        break
+      }
+      stats = stats tail
+      room = cols - 1 - (2 + 2 + length(stats))
+      if (room < width) width = room > 8 ? room : 8
+
+      filled = int(ratio * width + 0.5)
+      bar = ""; for (i = 0; i < filled; i++) bar = bar "█"
+      rest = ""; for (i = filled; i < width; i++) rest = rest "░"
+
+      printf "\r  %s%s%s%s  %s%s%s%s%s", green, bar, dim, rest, gray, stats, \
+             (label != "" ? graydim "  " label : ""), reset, clr
+      fflush()
+    }'
+  return 0
+}
+
+# Closes the progress line and gives the cursor back.
+progress_end() {
+  if [ "$PROGRESS_DREW" = true ] && [ "$INTERACTIVE" = true ]; then
+    printf '\n'
+  fi
+  PROGRESS_DREW=false
+  PROGRESS_LOGGED=-1
+  show_cursor
+  return 0
+}
+
+# Size of a local file in bytes, 0 when it does not exist yet.
+file_size() {
+  if [ ! -f "$1" ]; then
+    echo 0
+    return 0
+  fi
+  wc -c < "$1" | tr -d ' '
+}
+
+# Asks the server for the size of a file and whether it accepts ranged GETs,
+# which is what makes an interrupted download resumable. Sets REMOTE_SIZE (empty
+# when unknown) and REMOTE_RANGES.
+probe_remote() {
+  REMOTE_SIZE=""
+  REMOTE_RANGES=false
+
+  probe_headers=$(curl -sIL --max-time 30 "$1" 2>/dev/null | tr -d '\r') || probe_headers=""
+  # Redirects mean several header blocks. Only the last one describes the file,
+  # and only if it succeeded: an error page has a Content-Length too.
+  # The size is only accepted as a plain number: everything downstream does
+  # arithmetic on it, and `set -e` would kill the installer over a header a proxy
+  # decided to reword.
+  REMOTE_SIZE=$(printf '%s\n' "$probe_headers" | awk '
+    /^[Hh][Tt][Tt][Pp]\// { status = $2; next }
+    tolower($1) == "content-length:" { len = $2 }
+    END { if (status ~ /^2/ && len ~ /^[0-9]+$/) print len }')
+  if printf '%s\n' "$probe_headers" | awk '
+    /^[Hh][Tt][Tt][Pp]\// { status = $2; ranges = 0; next }
+    tolower($1) == "accept-ranges:" { ranges = (tolower($2) == "bytes") }
+    END { exit(status ~ /^2/ && ranges ? 0 : 1) }'; then
+    REMOTE_RANGES=true
+  fi
+
+  # Some CDNs answer HEAD without a size; a one-byte ranged GET settles both
+  # questions at once, because only a 206 carries Content-Range.
+  if [ -z "$REMOTE_SIZE" ]; then
+    probe_headers=$(curl -sL --max-time 30 -r 0-0 -D - -o /dev/null "$1" 2>/dev/null | tr -d '\r') || probe_headers=""
+    REMOTE_SIZE=$(printf '%s\n' "$probe_headers" | awk '
+      /^[Hh][Tt][Tt][Pp]\// { status = $2; next }
+      tolower($1) == "content-range:" { split($2, a, "/"); if (a[2] != "") total = a[2] }
+      END { if (status == "206" && total ~ /^[0-9]+$/) print total }')
+    if [ -n "$REMOTE_SIZE" ]; then
+      REMOTE_RANGES=true
+    fi
+  fi
+  return 0
+}
+
+CURL_PID=""
+CURL_ERR_FILE=""
+
+# Downloads <url> into <file> with a progress bar, continuing an interrupted
+# transfer instead of starting over: curl runs with -C -, the partial file is
+# kept on Ctrl-C and on network errors, and the next attempt picks up at its
+# current size. A file that already has the remote size is left alone, so a
+# re-run after a completed download costs one HEAD request. Progress is reported
+# both ways -- as a redrawn bar for a person and as protocol events -- so the
+# same function serves a standalone run and a --json consumer.
+# Usage: download_with_progress <url> <file> [label]
+download_with_progress() {
+  dl_url="$1"
+  dl_out="$2"
+  dl_label="${3:-}"
+  dl_name=$(basename "$dl_out")
+
+  probe_remote "$dl_url"
+  dl_total="${REMOTE_SIZE:-0}"
+  dl_have=$(file_size "$dl_out")
+
+  if [ "$dl_total" -gt 0 ] && [ "$dl_have" -eq "$dl_total" ]; then
+    printf '  %sAlready downloaded%s (%s)\n' "$JUNIE_GREEN" "$RESET" "$(human_bytes "$dl_total")"
+    emit_progress "$dl_name" "$dl_have" "$dl_total" "$dl_label"
+    return 0
+  fi
+  if [ "$dl_total" -gt 0 ] && [ "$dl_have" -gt "$dl_total" ]; then
+    printf '  %sLocal file is bigger than the remote one — starting over.%s\n' "$YELLOW" "$RESET"
+    rm -f "$dl_out"
+    dl_have=0
+  fi
+  if [ "$dl_have" -gt 0 ] && [ "$REMOTE_RANGES" != true ]; then
+    printf '  %sServer will not resume this file — downloading it again.%s\n' "$YELLOW" "$RESET"
+    rm -f "$dl_out"
+    dl_have=0
+  fi
+  if [ "$dl_have" -gt 0 ]; then
+    printf '  %sResuming at %s%s\n' "$GRAY" "$(human_bytes "$dl_have")" "$RESET"
+  fi
+
+  # Re-measure the terminal: it may have been resized since the last step, and
+  # the bar sizes itself to fit.
+  TERM_COLS=$(tput cols 2>/dev/null || echo 80)
+  if [ "$INTERACTIVE" = true ]; then
+    printf '%s' "$HIDE_CURSOR"
+  fi
+
+  # curl keeps stderr for the failure message: it would otherwise land in the
+  # middle of the bar. The path is global so the interrupt trap can remove it.
+  CURL_ERR_FILE=$(mktemp "${TMPDIR:-/tmp}/junie-curl.XXXXXX")
+  dl_err="$CURL_ERR_FILE"
+  curl --fail --silent --show-error --location -C - -o "$dl_out" "$dl_url" 2>"$dl_err" &
+  CURL_PID=$!
+
+  dl_prev_bytes=$dl_have
+  dl_prev_time=$(date +%s)
+  dl_bps=0
+  while kill -0 "$CURL_PID" 2>/dev/null; do
+    dl_now_bytes=$(file_size "$dl_out")
+    dl_now_time=$(date +%s)
+    if [ "$dl_now_time" -gt "$dl_prev_time" ]; then
+      dl_bps=$(( (dl_now_bytes - dl_prev_bytes) / (dl_now_time - dl_prev_time) ))
+      dl_prev_bytes=$dl_now_bytes
+      dl_prev_time=$dl_now_time
+      # One event per second; the bar below is redrawn far more often than that.
+      emit_progress "$dl_name" "$dl_now_bytes" "$dl_total" "$dl_label"
+    fi
+    progress_render "$dl_now_bytes" "$dl_total" "$dl_bps" "$dl_label"
+    sleep 0.2
+  done
+
+  dl_rc=0
+  wait "$CURL_PID" || dl_rc=$?
+  CURL_PID=""
+  # One last frame so the bar lands on the final size — but only on success: a
+  # failed download should not leave a bar behind at all.
+  if [ "$dl_rc" -eq 0 ]; then
+    dl_final=$(file_size "$dl_out")
+    progress_render "$dl_final" "$dl_total" "$dl_bps" "$dl_label"
+    emit_progress "$dl_name" "$dl_final" "$dl_total" "$dl_label"
+  fi
+  progress_end
+
+  # Exit 33/36 mean the server refused our resume offset. With no known size we
+  # cannot tell a finished file from a broken one, so let the checksum decide.
+  if [ "$dl_rc" -eq 33 ] || [ "$dl_rc" -eq 36 ]; then
+    if [ "$dl_total" -eq 0 ]; then
+      printf '  %sServer rejected the resume offset; verifying what we have.%s\n' "$YELLOW" "$RESET"
+      rm -f "$dl_err"
+      CURL_ERR_FILE=""
+      return 0
+    fi
+  fi
+  if [ "$dl_rc" -ne 0 ]; then
+    if [ -s "$dl_err" ]; then
+      printf '  %s%s%s\n' "$RED" "$(head -n 2 "$dl_err" | tr -d '\r')" "$RESET"
+    fi
+    rm -f "$dl_err"
+    CURL_ERR_FILE=""
+    return "$dl_rc"
+  fi
+  rm -f "$dl_err"
+  CURL_ERR_FILE=""
+  return 0
+}
+
+# Function to download a file with retry logic and exponential backoff.
+# Every attempt resumes from the bytes already on disk, so a dropped connection
+# costs the retry, not the download. An attempt that made progress resets the
+# backoff, because a flaky link that keeps moving forward is worth staying on.
+# Usage: download_with_retry <url> <output_file> [max_retries] [label]
+download_with_retry() {
+  url="$1"
+  output_file="$2"
+  max_retries="${3:-3}"
+  label="${4:-}"
+  attempt=1
+  delay=2
+
+  while [ "$attempt" -le "$max_retries" ]; do
+    if [ "$attempt" -gt 1 ]; then
+      printf '  %sAttempt %d of %d%s\n' "$GRAY_DIM" "$attempt" "$max_retries" "$RESET"
+    fi
+    before=$(file_size "$output_file")
+    if download_with_progress "$url" "$output_file" "$label"; then
+      return 0
+    fi
+    after=$(file_size "$output_file")
+
+    if [ "$attempt" -lt "$max_retries" ]; then
+      if [ "$after" -gt "$before" ]; then
+        delay=2
+      fi
+      if [ "$after" -gt 0 ]; then
+        printf '  %sDownload stopped at %s. Resuming in %ds...%s\n' \
+          "$YELLOW" "$(human_bytes "$after")" "$delay" "$RESET"
+      else
+        printf '  %sDownload failed. Retrying in %ds...%s\n' "$YELLOW" "$delay" "$RESET"
+      fi
+      sleep "$delay"
+      delay=$((delay * 2))
+    fi
+    attempt=$((attempt + 1))
+  done
+
+  printf '  %sERROR: Download failed after %d attempts.%s\n' "$RED" "$max_retries" "$RESET"
+  if [ "$(file_size "$output_file")" -gt 0 ]; then
+    printf '  %sThe partial file is kept — re-run this script to resume.%s\n' "$GRAY" "$RESET"
+  fi
+  emit_error "Download failed after $max_retries attempts"
+  return 1
+}
+
+UNZIP_PID=""
+
+# Unzips <archive> into <dest> with a progress bar driven by the size of
+# <watch-dir>, the directory the archive creates, and with the same progress
+# events a --json consumer gets for downloads. Falls back to a plain quiet unzip
+# when the uncompressed size is unavailable.
+# Usage: extract_with_progress <archive> <dest> <watch-dir> [label]
+extract_with_progress() {
+  ex_zip="$1"
+  ex_dest="$2"
+  ex_watch="$3"
+  ex_label="${4:-}"
+  ex_name=$(basename "$ex_zip")
+
+  ex_total=$(unzip -Zt "$ex_zip" 2>/dev/null |
+    awk '{ for (i = 1; i <= NF; i++) if ($i == "bytes") { print $(i - 1); exit } }')
+  if [ -z "$ex_total" ]; then
+    unzip -q -o "$ex_zip" -d "$ex_dest"
+    return 0
+  fi
+
+  TERM_COLS=$(tput cols 2>/dev/null || echo 80)
+  if [ "$INTERACTIVE" = true ]; then
+    printf '%s' "$HIDE_CURSOR"
+  fi
+  unzip -q -o "$ex_zip" -d "$ex_dest" &
+  UNZIP_PID=$!
+  ex_prev_bytes=0
+  ex_prev_time=$(date +%s)
+  ex_bps=0
+  while kill -0 "$UNZIP_PID" 2>/dev/null; do
+    # The destination directory does not exist until unzip creates it, so `du`
+    # can fail — `awk END` still prints a number, keeping the arithmetic valid.
+    ex_now_bytes=$(du -sk "$ex_watch" 2>/dev/null | awk 'END { print $1 * 1024 }')
+    ex_now_bytes=${ex_now_bytes:-0}
+    ex_now_time=$(date +%s)
+    if [ "$ex_now_time" -gt "$ex_prev_time" ]; then
+      ex_bps=$(( (ex_now_bytes - ex_prev_bytes) / (ex_now_time - ex_prev_time) ))
+      ex_prev_bytes=$ex_now_bytes
+      ex_prev_time=$ex_now_time
+      emit_progress "$ex_name" "$ex_now_bytes" "$ex_total" "$ex_label" "extracting"
+    fi
+    progress_render "$ex_now_bytes" "$ex_total" "$ex_bps" "$ex_label"
+    sleep 0.5
+  done
+
+  ex_rc=0
+  wait "$UNZIP_PID" || ex_rc=$?
+  UNZIP_PID=""
+  if [ "$ex_rc" -eq 0 ]; then
+    progress_render "$ex_total" "$ex_total" "$ex_bps" "$ex_label"
+    emit_progress "$ex_name" "$ex_total" "$ex_total" "$ex_label" "extracting"
+  fi
+  progress_end
+  return "$ex_rc"
+}
+
+# Types a line out character by character. The line is peeled one character at a
+# time with parameter expansion rather than indexed with a substring, which is a
+# bash extension.
+type_line() {
+  if [ "$INTERACTIVE" != true ]; then
+    printf '  %s\n' "$1"
+    return 0
+  fi
+  printf '  %s' "${2:-$GRAY}"
+  type_rest="$1"
+  while [ -n "$type_rest" ]; do
+    type_tail="${type_rest#?}"
+    printf '%s' "${type_rest%"$type_tail"}"
+    type_rest="$type_tail"
+    sleep 0.012
+  done
+  printf '%s\n' "$RESET"
+  return 0
+}
+# --- junie-ui:end ---
 
 # ============================================================
 # Collect system information
@@ -229,39 +745,9 @@ MEM_GB=$((MEM_BYTES / 1073741824))
 # ============================================================
 # System info summary: evaluate & display
 # ============================================================
-echo "=== Junie Local Model Installer ==="
-echo ""
-echo "=== System Information ==="
-echo ""
-
-# ANSI color helpers
-GREEN='\033[0;32m'
-RED='\033[0;31m'
-YELLOW='\033[0;33m'
-NC='\033[0m' # No Color
-
-if [ "$MACHINE_OUTPUT" = true ]; then
-  GREEN=''
-  RED=''
-  YELLOW=''
-  NC=''
-fi
-
-# Helper: print a value in green if ok, yellow if warning, red if not ok
-print_value() {
-  label="$1"
-  value="$2"
-  ok="$3"
-  warn="$4"
-  requirement="$5"
-  if [ "$ok" = true ] && [ "$warn" = false ]; then
-    printf "  %-20s ${GREEN}%s${NC}\n" "$label" "$value"
-  elif [ "$warn" = true ]; then
-    printf "  %-20s ${YELLOW}%s${NC}  (%s)\n" "$label" "$value" "$requirement"
-  else
-    printf "  %-20s ${RED}%s${NC}  (requirement: %s)\n" "$label" "$value" "$requirement"
-  fi
-}
+junie_logo
+type_line "Local model installer" "$GRAY"
+section "System information"
 
 ALL_OK=true
 
@@ -281,28 +767,22 @@ else
 fi
 print_value "OS:" "$OS_DISPLAY" "$OS_OK" false "macOS 26 or higher"
 emit_check "os" "$(check_status "$OS_OK" false)" "$OS_DISPLAY" "macOS 26 or higher"
-echo ""
 
-# CPU check (hard: Apple Silicon, recommended: M4 or M5)
+# CPU check (hard requirement: Apple M5 or newer)
+#
+# The generation is read out of the brand string ("Apple M5 Pro" -> 5) and
+# compared numerically, so every chip released after the M5 clears the check
+# without this having to be extended for each new generation. Everything below an
+# M5 is turned away, as is an Intel Mac, whose brand string carries no
+# "Apple M<n>" at all.
+CPU_GENERATION=$(printf '%s' "$CPU_MODEL" | sed -n 's/.*Apple M\([0-9][0-9]*\).*/\1/p')
 CPU_OK=true
-CPU_WARN=false
-case "$CPU_MODEL" in
-  *M4*|*M5*)
-    # Fully recommended
-    ;;
-  *M*)
-    # Has Apple Silicon but not M4/M5 — acceptable with warning
-    CPU_WARN=true
-    ;;
-  *)
-    # No Apple Silicon — hard fail
-    CPU_OK=false
-    ALL_OK=false
-    ;;
-esac
-print_value "CPU:" "$CPU_MODEL" "$CPU_OK" "$CPU_WARN" "M4 or M5 recommended"
-emit_check "cpu" "$(check_status "$CPU_OK" "$CPU_WARN")" "$CPU_MODEL" "M4 or M5 recommended"
-echo ""
+if [ -z "$CPU_GENERATION" ] || [ "$CPU_GENERATION" -lt 5 ]; then
+  CPU_OK=false
+  ALL_OK=false
+fi
+print_value "CPU:" "$CPU_MODEL" "$CPU_OK" false "M5 or newer"
+emit_check "cpu" "$(check_status "$CPU_OK" false)" "$CPU_MODEL" "M5 or newer"
 
 # RAM check (hard: >= 40 GB, recommended: >= 60 GB)
 RAM_OK=true
@@ -315,20 +795,9 @@ elif [ "$MEM_GB" -lt 60 ]; then
 fi
 print_value "RAM:" "${MEM_GB} GB" "$RAM_OK" "$RAM_WARN" "minimum 40 GB, 60 GB recommended"
 emit_check "ram" "$(check_status "$RAM_OK" "$RAM_WARN")" "${MEM_GB} GB" "minimum 40 GB, 60 GB recommended"
-echo ""
 
-# Install Configuration section
-echo "=== Install Configuration ==="
-echo ""
-
-print_value "Engine:" "junie-mlx-vlm v${ENGINE_VERSION}" true false ""
-print_value "Model:" "$MODEL" true false ""
-print_value "Models directory:" "$MODELS_DIR" true false ""
-print_value "Junie home:" "$JUNIE_HOME" true false ""
-print_value "Inference port:" "$ENGINE_PORT" true false ""
-print_value "RAM allowance:" "${ENGINE_RAM_GB} GB" true false ""
-echo ""
-
+# The install configuration is not shown; it still travels as an event so a
+# machine consumer sees the port, the RAM allowance and the engine version.
 emit_event "\"event\":\"config\",\"port\":$ENGINE_PORT,\"ram_gb\":$ENGINE_RAM_GB,\"engine_version\":\"$(json_escape "$ENGINE_VERSION")\",\"model\":\"$(json_escape "$MODEL")\",\"checks_passed\":$ALL_OK"
 
 if [ "$CHECK_ONLY" = true ]; then
@@ -343,7 +812,8 @@ fi
 # Abort unless all hard requirements are met
 # ============================================================
 if [ "$ALL_OK" = false ]; then
-  echo "Some system requirements are not met. Installation cannot proceed."
+  echo ""
+  printf '  %sSome system requirements are not met. Installation cannot proceed.%s\n' "$RED" "$RESET"
   emit_error "Some system requirements are not met. Installation cannot proceed."
   wait_and_exit 1
 fi
@@ -355,16 +825,24 @@ cleanup() {
   # Avoid executing this trap recursively.
   trap - INT TERM
 
+  # Close the progress bar and give the cursor back before printing anything.
+  progress_end
+  if [ -n "$CURL_ERR_FILE" ]; then
+    rm -f "$CURL_ERR_FILE"
+  fi
+
   echo ""
   if [ -d "$DOWNLOAD_DIR" ]; then
-    echo "Interrupted — partial downloads preserved in $DOWNLOAD_DIR"
-    echo "Re-run this script to resume."
+    printf '  %sInterrupted — partial downloads preserved in %s%s\n' "$YELLOW" "$DOWNLOAD_DIR" "$RESET"
+    printf '  %sRe-run this script to resume from where it stopped.%s\n' "$GRAY" "$RESET"
     emit_error "Interrupted — partial downloads preserved, re-run to resume"
   else
-    echo "Interrupted."
+    printf '  %sInterrupted.%s\n' "$YELLOW" "$RESET"
     emit_error "Interrupted"
   fi
 
+  # curl and unzip are killed, not their partial output: the bytes already on
+  # disk are what the next run resumes from.
   kill $(jobs -p) 2>/dev/null || true
   wait 2>/dev/null || true
 
@@ -375,91 +853,10 @@ trap 'cleanup 130' INT
 trap 'cleanup 143' TERM
 
 # Create directories
-echo "Creating directories..."
+printf '  %sCreating directories...%s\n' "$GRAY" "$RESET"
 mkdir -p "$MODELS_DIR"
 mkdir -p "$VERSIONS_DIR"
 mkdir -p "$DOWNLOAD_DIR"
-
-# Download while emitting progress events, polling the output file size.
-# The total comes from a HEAD request; with resumed downloads the file size
-# is absolute, so bytes/total stays correct across re-runs.
-download_with_progress_events() {
-  url="$1"
-  output_file="$2"
-  label="$3"
-  file_name=$(basename "$output_file")
-
-  total=$(curl -sIL "$url" 2>/dev/null | tr -d '\r' | awk 'tolower($1) == "content-length:" { len = $2 } END { print len + 0 }')
-
-  curl -sSL -C - -o "$output_file" "$url" &
-  download_pid=$!
-  while kill -0 "$download_pid" 2>/dev/null; do
-    bytes=$(stat -f %z "$output_file" 2>/dev/null || echo 0)
-    emit_progress "$file_name" "$bytes" "$total" "$label"
-    sleep 1
-  done
-  if wait "$download_pid"; then
-    emit_progress "$file_name" "$(stat -f %z "$output_file" 2>/dev/null || echo 0)" "$total" "$label"
-    return 0
-  fi
-  return 1
-}
-
-# Extract a zip while emitting progress events, polling the unpacked size on
-# disk against the archive's uncompressed total (from its central directory).
-extract_with_progress_events() {
-  archive="$1"
-  dest_dir="$2"
-  label="$3"
-  file_name=$(basename "$archive")
-
-  total=$(unzip -l "$archive" 2>/dev/null | tail -1 | awk '{print $1 + 0}')
-
-  unzip -q "$archive" -d "$MODELS_DIR" &
-  unzip_pid=$!
-  while kill -0 "$unzip_pid" 2>/dev/null; do
-    # The destination directory does not exist until unzip creates it, so `du`
-    # can fail — `awk END` still prints a number, keeping the arithmetic valid.
-    extracted_kb=$(du -sk "$dest_dir" 2>/dev/null | awk 'END { print $1 + 0 }')
-    bytes=$(( ${extracted_kb:-0} * 1024 ))
-    emit_progress "$file_name" "$bytes" "$total" "$label" "extracting"
-    sleep 1
-  done
-  wait "$unzip_pid"
-}
-
-# Function to download a file with retry logic and exponential backoff
-# Usage: download_with_retry <url> <output_file> <label> [max_retries]
-download_with_retry() {
-  url="$1"
-  output_file="$2"
-  dl_label="$3"
-  max_retries="${4:-3}"
-  attempt=1
-  delay=2
-
-  while [ "$attempt" -le "$max_retries" ]; do
-    echo "  Attempt $attempt of $max_retries..."
-    if [ "$MACHINE_OUTPUT" = true ]; then
-      if download_with_progress_events "$url" "$output_file" "$dl_label"; then
-        return 0
-      fi
-    elif curl --progress-bar -SL -C - -o "$output_file" "$url"; then
-      return 0
-    fi
-
-    if [ "$attempt" -lt "$max_retries" ]; then
-      echo "  Download failed. Retrying in ${delay}s..."
-      sleep "$delay"
-      delay=$((delay * 2))
-    fi
-    attempt=$((attempt + 1))
-  done
-
-  echo "  ERROR: Download failed after $max_retries attempts."
-  emit_error "Download failed after $max_retries attempts"
-  return 1
-}
 
 # Check if an engine version has been fully unpacked. As with the models, a
 # completion marker is written after unpacking — a version directory without it
@@ -475,22 +872,26 @@ engine_installed() {
 # Function to download and unpack the inference engine, then point current at it
 install_engine() {
   if engine_installed; then
-    echo "  Engine v$ENGINE_VERSION is already unpacked. Skipping download."
+    printf '  %sEngine v%s is already unpacked. Skipping download.%s\n' "$GRAY" "$ENGINE_VERSION" "$RESET"
   else
     echo "  Downloading $ENGINE_ARCHIVE..."
-    download_with_retry "$ENGINE_URL" "$DOWNLOAD_DIR/$ENGINE_ARCHIVE" "$ENGINE_LABEL"
-    echo "  Download complete. Checking SHA256..."
+    download_with_retry "$ENGINE_URL" "$DOWNLOAD_DIR/$ENGINE_ARCHIVE" 3 "$ENGINE_LABEL"
+    printf '  %sChecking SHA256...%s\n' "$GRAY" "$RESET"
 
     emit_activity "verifying" "$ENGINE_ARCHIVE" "$ENGINE_LABEL"
     actual_sha256=$(shasum -a 256 "$DOWNLOAD_DIR/$ENGINE_ARCHIVE" | awk '{print $1}')
     if [ "$actual_sha256" != "$ENGINE_SHA256" ]; then
-      echo "  ERROR: SHA256 mismatch for $ENGINE_ARCHIVE"
+      printf '  %sERROR: SHA256 mismatch for %s%s\n' "$RED" "$ENGINE_ARCHIVE" "$RESET"
       echo "    Expected: $ENGINE_SHA256"
       echo "    Actual:   $actual_sha256"
+      # A resumed download that ends up corrupt would keep failing this check
+      # forever, so drop the file and let the next run fetch it again.
+      rm -f "$DOWNLOAD_DIR/$ENGINE_ARCHIVE"
+      printf '  %sThe damaged file was removed — re-run this script to download it again.%s\n' "$GRAY" "$RESET"
       emit_error "SHA256 mismatch for $ENGINE_ARCHIVE"
       wait_and_exit 1
     fi
-    echo "  SHA256 verified: $actual_sha256"
+    printf '  %sSHA256 verified%s %s%s%s\n' "$JUNIE_GREEN" "$RESET" "$GRAY_DIM" "$actual_sha256" "$RESET"
 
     echo "  Unpacking to $ENGINE_DIR..."
     emit_activity "extracting" "$ENGINE_ARCHIVE" "$ENGINE_LABEL"
@@ -708,8 +1109,7 @@ set_default_junie_model() {
 # ============================================================
 # Step 1: Install the inference engine
 # ============================================================
-echo "=== Installing the inference engine ==="
-echo ""
+section "Installing the inference engine"
 emit_step_start "engine" "Installing the inference engine"
 install_engine
 emit_step_done "engine"
@@ -717,8 +1117,7 @@ emit_step_done "engine"
 # ============================================================
 # Step 2: Download and install models
 # ============================================================
-echo "=== Installing models ==="
-echo ""
+section "Installing models"
 emit_step_start "models" "Installing models"
 
 # Function to download and verify a model archive
@@ -727,20 +1126,24 @@ download_and_verify() {
   expected_sha256="$2"
   archive_label="$3"
 
-  echo "Downloading $archive..."
-  download_with_retry "$BASE_URL/$archive" "$DOWNLOAD_DIR/$archive" "$archive_label"
-  echo "  Download complete. Checking SHA256..."
+  echo "  Downloading $archive..."
+  download_with_retry "$BASE_URL/$archive" "$DOWNLOAD_DIR/$archive" 3 "$archive_label"
+  printf '  %sChecking SHA256...%s\n' "$GRAY" "$RESET"
 
   emit_activity "verifying" "$archive" "$archive_label"
   actual=$(shasum -a 256 "$DOWNLOAD_DIR/$archive" | awk '{print $1}')
   if [ "$actual" != "$expected_sha256" ]; then
-    echo "  ERROR: SHA256 mismatch for $archive"
+    printf '  %sERROR: SHA256 mismatch for %s%s\n' "$RED" "$archive" "$RESET"
     echo "    Expected: $expected_sha256"
     echo "    Actual:   $actual"
+    # Keeping a corrupt archive would make every later run resume into the same
+    # mismatch, so it is dropped and re-downloaded from scratch next time.
+    rm -f "$DOWNLOAD_DIR/$archive"
+    printf '  %sThe damaged archive was removed — re-run this script to download it again.%s\n' "$GRAY" "$RESET"
     emit_error "SHA256 mismatch for $archive"
     wait_and_exit 1
   fi
-  echo "  SHA256 verified: $actual"
+  printf '  %sSHA256 verified%s %s%s%s\n' "$JUNIE_GREEN" "$RESET" "$GRAY_DIM" "$actual" "$RESET"
 }
 
 # Check if a model has been fully unzipped to the models directory.
@@ -764,77 +1167,66 @@ install_model_if_needed() {
   model_label="$4"
 
   if model_installed "$model_id"; then
-    echo "  Model $model_id is already installed. Skipping."
-    echo ""
+    printf '  %sModel %s is already installed. Skipping.%s\n\n' "$GRAY" "$model_id" "$RESET"
     return 0
   fi
 
-  echo "  Model $model_id is not installed. Proceeding..."
-  echo ""
+  printf '  %sModel %s is not installed. Proceeding...%s\n\n' "$GRAY" "$model_id" "$RESET"
   download_and_verify "$zip_file" "$sha256_sum" "$model_label"
-  echo "Extracting $zip_file to $MODELS_DIR..."
+  echo "  Extracting $zip_file..."
   emit_activity "extracting" "$zip_file" "$model_label"
   # Remove leftovers from a previously interrupted extraction — the path is
   # spelled out instead of using $MODELS_DIR so the rm -rf target is explicit
   rm -rf "$BASE_DIR/models/$model_id"
-  if [ "$MACHINE_OUTPUT" = true ]; then
-    extract_with_progress_events "$DOWNLOAD_DIR/$zip_file" "$MODELS_DIR/$model_id" "$model_label"
-  else
-    unzip -q "$DOWNLOAD_DIR/$zip_file" -d "$MODELS_DIR"
-  fi
+  extract_with_progress "$DOWNLOAD_DIR/$zip_file" "$MODELS_DIR" "$MODELS_DIR/$model_id" "$model_label"
   touch "$(model_completion_marker "$model_id")"
-  echo "  Extraction complete."
-  echo ""
+  printf '  %sExtraction complete.%s\n\n' "$JUNIE_GREEN" "$RESET"
 }
 
 install_model_if_needed "$MODEL_ZIP_1" "$MODEL_SHA256_1" "$MODEL_ID_1" "$MODEL_LABEL_1"
 install_model_if_needed "$MODEL_ZIP_2" "$MODEL_SHA256_2" "$MODEL_ID_2" "$MODEL_LABEL_2"
 
 # Cleanup model downloads
-echo "Removing downloaded archives..."
+printf '  %sRemoving downloaded archives...%s\n' "$GRAY" "$RESET"
 rm -rf "$DOWNLOAD_DIR"
 emit_step_done "models"
 
 # ============================================================
 # Step 3: Configure Junie
 # ============================================================
-echo "=== Configuring Junie ==="
-echo ""
+section "Configuring Junie"
 emit_step_start "configure" "Configuring Junie"
 # These degrade gracefully with warnings; without `|| true` a return 1
 # would abort the script under `set -e`.
 create_junie_model_config || true
 set_default_junie_model || true
 emit_step_done "configure"
-echo ""
 
 # ============================================================
 # Step 4: Start the inference engine
 # ============================================================
-echo "=== Starting the inference engine ==="
-echo ""
+section "Starting the inference engine"
 emit_step_start "start" "Starting the inference engine"
 start_engine || true
 emit_step_done "start"
 
 if [ "$KEEP_CONFIG" = true ]; then
   echo ""
-  echo "  Note: --keep-config is set, the previous server-config.json was preserved."
+  printf '  %sNote: --keep-config is set, the previous server-config.json was preserved.%s\n' "$GRAY_DIM" "$RESET"
 fi
 
+section "Installation complete"
+type_line "Local model installed." "$JUNIE_GREEN$BOLD"
 echo ""
-echo "=== Installation complete ==="
+print_value "Engine:" "$ENGINE_DIR" true false ""
+print_value "Current version:" "$CURRENT_LINK -> $ENGINE_DIR" true false ""
+print_value "Models:" "$MODELS_DIR" true false ""
+print_value "Engine log:" "$ENGINE_DAEMON_LOG" true false ""
+print_value "Junie model config:" "$JUNIE_HOME/models/${JUNIE_MODEL_ID}.json" true false ""
+print_value "Default model:" "$JUNIE_MODEL_ID" true false ""
 echo ""
-echo "  Engine installed to: $ENGINE_DIR"
-echo "  Current version:     $CURRENT_LINK -> $ENGINE_DIR"
-echo "  Models installed to: $MODELS_DIR"
-echo "  Engine log:          $ENGINE_DAEMON_LOG"
-echo "  Junie model config:  $JUNIE_HOME/models/${JUNIE_MODEL_ID}.json"
-echo ""
-echo "  The engine serves http://localhost:$ENGINE_PORT — the first request has"
-echo "  to wait for the model to load."
-echo "  Default model set to $JUNIE_MODEL_ID."
-echo "  Restart Junie to apply the changes."
-echo "  Control the engine with: $ENGINE_CTL {start|stop|status|wait}"
+printf '  %sThe engine serves http://localhost:%s — the first request has to wait%s\n' "$GRAY" "$ENGINE_PORT" "$RESET"
+printf '  %sfor the model to load.%s\n' "$GRAY" "$RESET"
+printf '  %sControl the engine with: %s {start|stop|status|wait}%s\n' "$GRAY" "$ENGINE_CTL" "$RESET"
 emit_event "\"event\":\"done\",\"model_id\":\"$JUNIE_MODEL_ID\",\"port\":$ENGINE_PORT,\"model_path\":\"$(json_escape "$MODELS_DIR/$MODEL_ID_1")\",\"label\":\"$(json_escape "$MODEL_LABEL_1")\""
 wait_and_exit 0

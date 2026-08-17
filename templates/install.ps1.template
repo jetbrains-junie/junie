@@ -21,8 +21,8 @@ $JUNIE_DATA = Join-Path $HOME ".local\share\junie"
 # installed version is reported back via $env:JUNIE_ONESHOT_VERSION_FILE.
 $ONESHOT = $env:JUNIE_ONESHOT
 
-function Log($msg) { Write-Host "[Junie] $msg" }
-function Log-Error($msg) { Write-Host "[Junie] ERROR: $msg" -ForegroundColor Red }
+function Log($msg) { Write-Host "$msg" }
+function Log-Error($msg) { Write-Host "ERROR: $msg" -ForegroundColor Red }
 
 function Get-Sha256($file) {
   (Get-FileHash -Path $file -Algorithm SHA256).Hash.ToLower()

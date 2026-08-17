@@ -57,9 +57,17 @@ same host, repo, and branch as the `channels.tsv` update-info URLs. Note that
 `junie.jetbrains.com` cannot be used here: it ignores the path and redirects
 every request to the Junie installer itself.
 
-The local model requires macOS 26+ on Apple Silicon; `local/install.sh` runs its
-own preflight checks and reports what is missing. If it fails, Junie itself is
-still installed and the installer exits non-zero with a retry hint.
+The local model requires macOS 26+ on an Apple M5 or newer with at least 40 GB of
+RAM; `local/install.sh` runs its own preflight checks and reports what is missing.
+If it fails, the installer says that Junie itself is installed and ready to run,
+prints the command to retry the local model on its own, and exits non-zero.
+
+`local/install.sh` reports itself two ways from one code path. Standalone it
+draws the Junie logo, section headings and a progress bar that fits the terminal;
+with `--json` it draws nothing, keeps its human stream free of escape sequences,
+and reports through the protocol events instead. The drawing is confined to the
+`# --- junie-ui:begin/end ---` block and steps down to plain lines whenever
+stdout is not a terminal, `CI=true`, or `JUNIE_NO_ANIM=1`.
 
 There is no PowerShell equivalent — the local model is macOS-only, so
 `install*.ps1` takes no such flag.

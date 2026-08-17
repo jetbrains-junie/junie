@@ -106,10 +106,11 @@ for name in "${INSTALLERS[@]}"; do
     fail "$name" "install_local_model: expected a fetch of $LOCAL_MODEL_URL, got: $observed"
   fi
 
-  # A failing local model setup fails the installer and prints a retry hint.
+  # A failing local model setup must still tell the user that Junie is installed,
+  # and hand them the command to retry the local model on its own.
   observed="$(
     LOCAL_MODEL_URL="$installer_url"
-    log() { :; }
+    log() { printf '%s\n' "$*"; }
     log_error() { printf '%s\n' "$*"; }
     curl() { :; }
     bash() { cat > /dev/null; return 1; }
@@ -117,10 +118,12 @@ for name in "${INSTALLERS[@]}"; do
     install_local_model
   )"
   status=$?
-  if [[ "$status" -eq 1 && "$observed" == *"To retry: curl -fsSL $LOCAL_MODEL_URL"* ]]; then
-    pass "$name" "failed local model setup exits non-zero with a retry hint"
+  if [[ "$status" -eq 1
+        && "$observed" == *"Junie itself is installed and ready to use"*
+        && "$observed" == *"curl -fsSL $LOCAL_MODEL_URL"* ]]; then
+    pass "$name" "failed local model setup reports Junie as installed, with a retry hint"
   else
-    fail "$name" "failed local model setup: expected status 1 and a retry hint, got status $status: $observed"
+    fail "$name" "failed local model setup: expected status 1, the Junie-is-installed line and a retry hint, got status $status: $observed"
   fi
 
   # The tail dispatch runs the setup only when the flag was given.

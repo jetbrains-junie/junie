@@ -26,8 +26,8 @@ LOCAL_MODEL_URL="https://raw.githubusercontent.com/jetbrains-junie/junie/main/lo
 # installed version is reported back via $JUNIE_ONESHOT_VERSION_FILE.
 ONESHOT="${JUNIE_ONESHOT:-}"
 
-log() { echo "[Junie] $*"; }
-log_error() { echo "[Junie] ERROR: $*" >&2; }
+log() { echo "$*"; }
+log_error() { echo "ERROR: $*" >&2; }
 
 usage() {
   echo "Usage: install.sh [--local-model]"
@@ -177,10 +177,15 @@ fetch_version_sha256() {
 install_local_model() {
   echo ""
   log "Junie is installed. Setting up the local model..."
-  echo ""
   if ! curl -fsSL "$LOCAL_MODEL_URL" | bash; then
-    log_error "Local model setup failed. Junie itself is installed and usable."
-    log_error "To retry: curl -fsSL $LOCAL_MODEL_URL | bash"
+    # The local model is an optional extra on top of a finished Junie install,
+    # and it is the part most likely to be refused -- it needs macOS 26 on an
+    # Apple M5 or newer with 40 GB of RAM. Whatever went wrong here, Junie itself
+    # is installed, so say so plainly instead of leaving the run looking failed.
+    echo ""
+    log_error "The local model setup did not complete."
+    log "Junie itself is installed and ready to use -- run: junie"
+    log "To try the local model again: curl -fsSL $LOCAL_MODEL_URL | bash"
     exit 1
   fi
 }
