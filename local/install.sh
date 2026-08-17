@@ -618,7 +618,7 @@ start_engine() {
   if [ -f "$ENGINE_CTL" ]; then
     waited=0
     while [ "$waited" -lt 30 ]; do
-      phase=$(curl -s -m 5 "http://localhost:$ENGINE_PORT/status" 2>/dev/null \
+      phase=$(curl -s -m 5 -H "Authorization: Bearer $AUTH_TOKEN" "http://localhost:$ENGINE_PORT/status" 2>/dev/null \
         | plutil -extract phase raw -o - -- - 2>/dev/null || true)
       if [ "$phase" = "ready" ]; then
         echo "  Engine is ready on port $ENGINE_PORT."
