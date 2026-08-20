@@ -513,7 +513,7 @@
     {
       "id": "factory-droid",
       "name": "Factory Droid",
-      "version": "0.199.0",
+      "version": "0.200.0",
       "description": "Factory Droid - AI coding agent powered by Factory AI",
       "website": "https://factory.ai/product/cli",
       "authors": [
@@ -522,7 +522,7 @@
       "license": "proprietary",
       "distribution": {
         "npx": {
-          "package": "droid@0.199.0",
+          "package": "droid@0.200.0",
           "args": [
             "exec",
             "--output-format",
@@ -679,7 +679,7 @@
     {
       "id": "grok-build",
       "name": "Grok Build",
-      "version": "1.0.6",
+      "version": "1.0.7",
       "description": "xAI's coding agent and CLI",
       "website": "https://x.ai/cli",
       "authors": [
@@ -688,7 +688,7 @@
       "license": "proprietary",
       "distribution": {
         "npx": {
-          "package": "@xai-official/grok@1.0.6",
+          "package": "@xai-official/grok@1.0.7",
           "args": [
             "agent",
             "stdio"
@@ -762,7 +762,7 @@
     {
       "id": "junie",
       "name": "Junie",
-      "version": "2943.1",
+      "version": "2944.1",
       "description": "AI Coding Agent by JetBrains",
       "repository": "https://github.com/JetBrains/junie-acp-release",
       "website": "https://junie.jetbrains.com",
@@ -773,42 +773,42 @@
       "distribution": {
         "binary": {
           "darwin-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2943.1/junie-nightly-2943.1-macos-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2944.1/junie-nightly-2944.1-macos-aarch64.zip",
             "cmd": "./Applications/junie.app/Contents/MacOS/junie",
             "args": [
               "--acp=true"
             ]
           },
           "darwin-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2943.1/junie-nightly-2943.1-macos-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2944.1/junie-nightly-2944.1-macos-amd64.zip",
             "cmd": "./Applications/junie.app/Contents/MacOS/junie",
             "args": [
               "--acp=true"
             ]
           },
           "linux-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2943.1/junie-nightly-2943.1-linux-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2944.1/junie-nightly-2944.1-linux-aarch64.zip",
             "cmd": "./junie-app/bin/junie",
             "args": [
               "--acp=true"
             ]
           },
           "linux-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2943.1/junie-nightly-2943.1-linux-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2944.1/junie-nightly-2944.1-linux-amd64.zip",
             "cmd": "./junie-app/bin/junie",
             "args": [
               "--acp=true"
             ]
           },
           "windows-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2943.1/junie-nightly-2943.1-windows-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2944.1/junie-nightly-2944.1-windows-amd64.zip",
             "cmd": "./junie/junie.exe",
             "args": [
               "--acp=true"
             ]
           },
           "windows-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2943.1/junie-nightly-2943.1-windows-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2944.1/junie-nightly-2944.1-windows-aarch64.zip",
             "cmd": "./junie/junie.exe",
             "args": [
               "--acp=true"
@@ -1024,7 +1024,7 @@
     {
       "id": "opencode",
       "name": "OpenCode",
-      "version": "1.18.18",
+      "version": "1.18.19",
       "description": "The open source coding agent",
       "repository": "https://github.com/anomalyco/opencode",
       "website": "https://opencode.ai",
@@ -1036,52 +1036,52 @@
       "distribution": {
         "binary": {
           "darwin-aarch64": {
-            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.18/opencode-darwin-arm64.zip",
+            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.19/opencode-darwin-arm64.zip",
             "cmd": "./opencode",
             "args": [
               "acp"
             ],
-            "sha256": "7d668bf26496fec8686d4e51ebb1ac2bd2e393f0c1620aa696c4c242a9e5806a"
+            "sha256": "0026326bd77a3277ab3726be237410b19389f7829e8bb3c82dfaf9044162067c"
           },
           "darwin-x86_64": {
-            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.18/opencode-darwin-x64.zip",
+            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.19/opencode-darwin-x64.zip",
             "cmd": "./opencode",
             "args": [
               "acp"
             ],
-            "sha256": "9581bd7683a7528456179fb11e3377d9ef568e10a935611a2c6722e349454d83"
+            "sha256": "ee495d7c30263c2cecb81a4558a9c4d29ac7b27c1df822e9d344a69cb56a75c3"
           },
           "linux-aarch64": {
-            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.18/opencode-linux-arm64.tar.gz",
+            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.19/opencode-linux-arm64.tar.gz",
             "cmd": "./opencode",
             "args": [
               "acp"
             ],
-            "sha256": "dcb1b5ec5687b43f87749560021f9203f3809e0ce5ae44ff9be8ae17083fe4ba"
+            "sha256": "506f98a1f618551f1f6fc5dcf591f824bef9d6819d40b27928ad7febcb7c363b"
           },
           "linux-x86_64": {
-            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.18/opencode-linux-x64.tar.gz",
+            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.19/opencode-linux-x64.tar.gz",
             "cmd": "./opencode",
             "args": [
               "acp"
             ],
-            "sha256": "0cddc222418b8553669905a8980c0cda7088f00da24d83d6ac76b01c9fdb2aaf"
+            "sha256": "7bb35487c55f9957f5d91ae60be6fa49fc8f74629c210c1719ed75fdbf7e2bd9"
           },
           "windows-aarch64": {
-            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.18/opencode-windows-arm64.zip",
+            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.19/opencode-windows-arm64.zip",
             "cmd": "./opencode",
             "args": [
               "acp"
             ],
-            "sha256": "0d34d837ea3b5e10349d8550318083040a8b4c061d3faaa4eabd339984aa49b0"
+            "sha256": "2e74619988a54f76837370862c0761c6595a1224ce4cd6da588975e1396a33a7"
           },
           "windows-x86_64": {
-            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.18/opencode-windows-x64.zip",
+            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.19/opencode-windows-x64.zip",
             "cmd": "./opencode.exe",
             "args": [
               "acp"
             ],
-            "sha256": "c6d265376fdb93164013671b0cf402410184f73c34fc15d82d40a16a745b15f4"
+            "sha256": "4381328bf6d611996c33d98daef27e89d274cb8391709fa1e36723f1d2899877"
           }
         }
       }
