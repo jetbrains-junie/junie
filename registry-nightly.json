@@ -169,7 +169,7 @@
     {
       "id": "cline",
       "name": "Cline",
-      "version": "3.0.55",
+      "version": "3.0.56",
       "description": "Autonomous coding agent CLI - capable of creating/editing files, running commands, using the browser, and more",
       "repository": "https://github.com/cline/cline",
       "website": "https://cline.bot/cli",
@@ -180,7 +180,7 @@
       "icon": "https://cdn.agentclientprotocol.com/registry/v1/latest/cline.svg",
       "distribution": {
         "npx": {
-          "package": "cline@3.0.55",
+          "package": "cline@3.0.56",
           "args": [
             "--acp"
           ]
@@ -742,7 +742,7 @@
     {
       "id": "harn",
       "name": "Harn",
-      "version": "0.10.108",
+      "version": "0.10.109",
       "description": "Harn runs .harn agent pipelines as a native ACP coding agent over stdio.",
       "repository": "https://github.com/burin-labs/harn",
       "website": "https://harnlang.com",
@@ -753,49 +753,49 @@
       "distribution": {
         "binary": {
           "darwin-aarch64": {
-            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.108/harn-aarch64-apple-darwin.tar.gz",
+            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.109/harn-aarch64-apple-darwin.tar.gz",
             "cmd": "./harn",
             "args": [
               "serve",
               "acp"
             ],
-            "sha256": "f2cfe546cdfe3e8de79ddfa0549ca46765c820c979284d9976262ae332d66180"
+            "sha256": "9c39515893c5ddb524c9c84a6ba1b31e49d82b2e9d9736adf3301a9fddaf8f84"
           },
           "darwin-x86_64": {
-            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.108/harn-x86_64-apple-darwin.tar.gz",
+            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.109/harn-x86_64-apple-darwin.tar.gz",
             "cmd": "./harn",
             "args": [
               "serve",
               "acp"
             ],
-            "sha256": "fef085820e67d5a98a8a51b5088ebe355d896419b8a907076f3435cc4650ca73"
+            "sha256": "2cec17a96a23c0b3abace52bc54de0bb2342a060b6d3bbb977961f94c3c1b97f"
           },
           "linux-aarch64": {
-            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.108/harn-aarch64-unknown-linux-gnu.tar.gz",
+            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.109/harn-aarch64-unknown-linux-gnu.tar.gz",
             "cmd": "./harn",
             "args": [
               "serve",
               "acp"
             ],
-            "sha256": "cebb920514df15ed6fb51a322ad8be954c07c2126cfcb5d96425f7ec739b1234"
+            "sha256": "376a256cebdd6d9472b19e6b220da4d5dde3cc7fe26266349e604ee84f899a88"
           },
           "linux-x86_64": {
-            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.108/harn-x86_64-unknown-linux-gnu.tar.gz",
+            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.109/harn-x86_64-unknown-linux-gnu.tar.gz",
             "cmd": "./harn",
             "args": [
               "serve",
               "acp"
             ],
-            "sha256": "0d1b6f0323990e84041c70eedf15bb98e84353b32398be9b82c4e44492fd2ada"
+            "sha256": "e375927425eb0cfe3ea6923ab83f3cbe687e4203a44c5a558c31fcb2db9bbbdb"
           },
           "windows-x86_64": {
-            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.108/harn-x86_64-pc-windows-msvc.zip",
+            "archive": "https://github.com/burin-labs/harn/releases/download/v0.10.109/harn-x86_64-pc-windows-msvc.zip",
             "cmd": "harn.exe",
             "args": [
               "serve",
               "acp"
             ],
-            "sha256": "081daf1f2236fe26fdc310ce8ca386f24213a02464ee58a6623d78d04f726eba"
+            "sha256": "317d332d49fffd3fab4489b6f969c38d3fcd03770a39231ae7bc3a36db8206ed"
           }
         }
       },
@@ -804,7 +804,7 @@
     {
       "id": "junie",
       "name": "Junie",
-      "version": "2965.1",
+      "version": "2966.1",
       "description": "AI Coding Agent by JetBrains",
       "repository": "https://github.com/JetBrains/junie-acp-release",
       "website": "https://junie.jetbrains.com",
@@ -815,42 +815,42 @@
       "distribution": {
         "binary": {
           "darwin-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2965.1/junie-nightly-2965.1-macos-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2966.1/junie-nightly-2966.1-macos-aarch64.zip",
             "cmd": "./Applications/junie.app/Contents/MacOS/junie",
             "args": [
               "--acp=true"
             ]
           },
           "darwin-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2965.1/junie-nightly-2965.1-macos-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2966.1/junie-nightly-2966.1-macos-amd64.zip",
             "cmd": "./Applications/junie.app/Contents/MacOS/junie",
             "args": [
               "--acp=true"
             ]
           },
           "linux-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2965.1/junie-nightly-2965.1-linux-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2966.1/junie-nightly-2966.1-linux-aarch64.zip",
             "cmd": "./junie-app/bin/junie",
             "args": [
               "--acp=true"
             ]
           },
           "linux-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2965.1/junie-nightly-2965.1-linux-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2966.1/junie-nightly-2966.1-linux-amd64.zip",
             "cmd": "./junie-app/bin/junie",
             "args": [
               "--acp=true"
             ]
           },
           "windows-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2965.1/junie-nightly-2965.1-windows-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2966.1/junie-nightly-2966.1-windows-amd64.zip",
             "cmd": "./junie/junie.exe",
             "args": [
               "--acp=true"
             ]
           },
           "windows-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/2965.1/junie-nightly-2965.1-windows-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/2966.1/junie-nightly-2966.1-windows-aarch64.zip",
             "cmd": "./junie/junie.exe",
             "args": [
               "--acp=true"
@@ -1066,7 +1066,7 @@
     {
       "id": "opencode",
       "name": "OpenCode",
-      "version": "1.18.19",
+      "version": "1.18.20",
       "description": "The open source coding agent",
       "repository": "https://github.com/anomalyco/opencode",
       "website": "https://opencode.ai",
@@ -1078,52 +1078,52 @@
       "distribution": {
         "binary": {
           "darwin-aarch64": {
-            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.19/opencode-darwin-arm64.zip",
+            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.20/opencode-darwin-arm64.zip",
             "cmd": "./opencode",
             "args": [
               "acp"
             ],
-            "sha256": "0026326bd77a3277ab3726be237410b19389f7829e8bb3c82dfaf9044162067c"
+            "sha256": "b483e547c029b4f0ba381f0d0c5b420bec48c24c2bbec1fb7f22252bae83da46"
           },
           "darwin-x86_64": {
-            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.19/opencode-darwin-x64.zip",
+            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.20/opencode-darwin-x64.zip",
             "cmd": "./opencode",
             "args": [
               "acp"
             ],
-            "sha256": "ee495d7c30263c2cecb81a4558a9c4d29ac7b27c1df822e9d344a69cb56a75c3"
+            "sha256": "abff81c995a137273526044b528ae0dc66b1aafdebd47198a875e7700a571340"
           },
           "linux-aarch64": {
-            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.19/opencode-linux-arm64.tar.gz",
+            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.20/opencode-linux-arm64.tar.gz",
             "cmd": "./opencode",
             "args": [
               "acp"
             ],
-            "sha256": "506f98a1f618551f1f6fc5dcf591f824bef9d6819d40b27928ad7febcb7c363b"
+            "sha256": "4c85612e92e8bca95628cadf7dcd92d4150105954004758b2910f868d97ba741"
           },
           "linux-x86_64": {
-            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.19/opencode-linux-x64.tar.gz",
+            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.20/opencode-linux-x64.tar.gz",
             "cmd": "./opencode",
             "args": [
               "acp"
             ],
-            "sha256": "7bb35487c55f9957f5d91ae60be6fa49fc8f74629c210c1719ed75fdbf7e2bd9"
+            "sha256": "8603214aa1e2e18f9312360c9360dfae6174f5cff6dc4f72b6045c80608af4d4"
           },
           "windows-aarch64": {
-            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.19/opencode-windows-arm64.zip",
+            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.20/opencode-windows-arm64.zip",
             "cmd": "./opencode",
             "args": [
               "acp"
             ],
-            "sha256": "2e74619988a54f76837370862c0761c6595a1224ce4cd6da588975e1396a33a7"
+            "sha256": "44a011876a6c4955049926826e2e6e938b6e7e672842a5ba00c3d16190bfb336"
           },
           "windows-x86_64": {
-            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.19/opencode-windows-x64.zip",
+            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.20/opencode-windows-x64.zip",
             "cmd": "./opencode.exe",
             "args": [
               "acp"
             ],
-            "sha256": "4381328bf6d611996c33d98daef27e89d274cb8391709fa1e36723f1d2899877"
+            "sha256": "057fe1bca56e71a133c1df7a0fa86573f0f9dcd84ee57dafaac053cda91a158b"
           }
         }
       }
