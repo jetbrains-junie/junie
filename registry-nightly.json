@@ -154,7 +154,7 @@
     {
       "id": "claude-acp",
       "name": "Claude Agent",
-      "version": "0.71.0",
+      "version": "0.72.0",
       "description": "ACP wrapper for Anthropic's Claude",
       "repository": "https://github.com/agentclientprotocol/claude-agent-acp",
       "authors": [
@@ -166,7 +166,7 @@
       "license_url": "https://github.com/agentclientprotocol/claude-agent-acp/blob/main/LICENSE",
       "distribution": {
         "npx": {
-          "package": "@agentclientprotocol/claude-agent-acp@0.71.0"
+          "package": "@agentclientprotocol/claude-agent-acp@0.72.0"
         }
       },
       "icon": "https://cdn.agentclientprotocol.com/registry/v1/latest/claude-acp.svg"
@@ -216,7 +216,7 @@
     {
       "id": "codex-acp",
       "name": "Codex",
-      "version": "1.7.0",
+      "version": "1.8.0",
       "description": "ACP adapter for OpenAI's coding assistant",
       "repository": "https://github.com/agentclientprotocol/codex-acp",
       "authors": [
@@ -228,7 +228,7 @@
       "license_url": "https://github.com/agentclientprotocol/codex-acp/blob/main/LICENSE",
       "distribution": {
         "npx": {
-          "package": "@agentclientprotocol/codex-acp@1.7.0"
+          "package": "@agentclientprotocol/codex-acp@1.8.0"
         }
       },
       "icon": "https://cdn.agentclientprotocol.com/registry/v1/latest/codex-acp.svg"
@@ -567,7 +567,7 @@
     {
       "id": "factory-droid",
       "name": "Factory Droid",
-      "version": "0.209.0",
+      "version": "0.209.1",
       "description": "Factory Droid - AI coding agent powered by Factory AI",
       "website": "https://factory.ai/product/cli",
       "authors": [
@@ -576,7 +576,7 @@
       "license": "proprietary",
       "distribution": {
         "npx": {
-          "package": "droid@0.209.0",
+          "package": "droid@0.209.1",
           "args": [
             "exec",
             "--output-format",
@@ -737,7 +737,7 @@
     {
       "id": "grok-build",
       "name": "Grok Build",
-      "version": "1.0.16",
+      "version": "1.0.17",
       "description": "xAI's coding agent and CLI",
       "website": "https://x.ai/cli",
       "authors": [
@@ -746,7 +746,7 @@
       "license": "proprietary",
       "distribution": {
         "npx": {
-          "package": "@xai-official/grok@1.0.16",
+          "package": "@xai-official/grok@1.0.17",
           "args": [
             "agent",
             "stdio"
@@ -821,7 +821,7 @@
     {
       "id": "junie",
       "name": "Junie",
-      "version": "3123.1",
+      "version": "3124.1",
       "description": "AI Coding Agent by JetBrains",
       "repository": "https://github.com/JetBrains/junie-acp-release",
       "website": "https://junie.jetbrains.com",
@@ -832,42 +832,42 @@
       "distribution": {
         "binary": {
           "darwin-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/3123.1/junie-nightly-3123.1-macos-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/3124.1/junie-nightly-3124.1-macos-aarch64.zip",
             "cmd": "./Applications/junie.app/Contents/MacOS/junie",
             "args": [
               "--acp=true"
             ]
           },
           "darwin-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/3123.1/junie-nightly-3123.1-macos-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/3124.1/junie-nightly-3124.1-macos-amd64.zip",
             "cmd": "./Applications/junie.app/Contents/MacOS/junie",
             "args": [
               "--acp=true"
             ]
           },
           "linux-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/3123.1/junie-nightly-3123.1-linux-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/3124.1/junie-nightly-3124.1-linux-aarch64.zip",
             "cmd": "./junie-app/bin/junie",
             "args": [
               "--acp=true"
             ]
           },
           "linux-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/3123.1/junie-nightly-3123.1-linux-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/3124.1/junie-nightly-3124.1-linux-amd64.zip",
             "cmd": "./junie-app/bin/junie",
             "args": [
               "--acp=true"
             ]
           },
           "windows-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/3123.1/junie-nightly-3123.1-windows-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/3124.1/junie-nightly-3124.1-windows-amd64.zip",
             "cmd": "./junie/junie.exe",
             "args": [
               "--acp=true"
             ]
           },
           "windows-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/3123.1/junie-nightly-3123.1-windows-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/3124.1/junie-nightly-3124.1-windows-aarch64.zip",
             "cmd": "./junie/junie.exe",
             "args": [
               "--acp=true"
