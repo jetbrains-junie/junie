@@ -12,6 +12,7 @@
         "ACRE / Agoragentic"
       ],
       "license": "MIT",
+      "license_url": "https://github.com/rhein1/agoragentic-integrations/blob/main/LICENSE",
       "distribution": {
         "npx": {
           "package": "agoragentic-mcp@1.3.0",
@@ -32,6 +33,7 @@
         "tao12345666333"
       ],
       "license": "Apache-2.0",
+      "license_url": "https://github.com/tao12345666333/amp-acp/blob/main/LICENSE",
       "icon": "https://cdn.agentclientprotocol.com/registry/v1/latest/amp-acp.svg",
       "distribution": {
         "binary": {
@@ -116,6 +118,7 @@
         "Augment Code <support@augmentcode.com>"
       ],
       "license": "proprietary",
+      "license_url": "https://github.com/augmentcode/auggie/blob/main/LICENSE.md",
       "icon": "https://cdn.agentclientprotocol.com/registry/v1/latest/auggie.svg",
       "distribution": {
         "npx": {
@@ -140,6 +143,7 @@
         "Autohand AI"
       ],
       "license": "Apache-2.0",
+      "license_url": "https://github.com/autohandai/autohand-acp/blob/main/LICENSE",
       "distribution": {
         "npx": {
           "package": "@autohandai/autohand-acp@0.2.1"
@@ -159,6 +163,7 @@
         "JetBrains"
       ],
       "license": "proprietary",
+      "license_url": "https://github.com/agentclientprotocol/claude-agent-acp/blob/main/LICENSE",
       "distribution": {
         "npx": {
           "package": "@agentclientprotocol/claude-agent-acp@0.70.0"
@@ -177,6 +182,7 @@
         "Cline Bot Inc."
       ],
       "license": "Apache-2.0",
+      "license_url": "https://github.com/cline/cline/blob/main/LICENSE",
       "icon": "https://cdn.agentclientprotocol.com/registry/v1/latest/cline.svg",
       "distribution": {
         "npx": {
@@ -219,6 +225,7 @@
         "Zed Industries"
       ],
       "license": "Apache-2.0",
+      "license_url": "https://github.com/agentclientprotocol/codex-acp/blob/main/LICENSE",
       "distribution": {
         "npx": {
           "package": "@agentclientprotocol/codex-acp@1.7.0"
@@ -301,6 +308,7 @@
         "Corust AI <support@corust.ai>"
       ],
       "license": "GPL-3.0-or-later",
+      "license_url": "https://github.com/Corust-ai/corust-agent-release/blob/main/LICENSE",
       "distribution": {
         "binary": {
           "darwin-aarch64": {
@@ -334,6 +342,7 @@
         "Thomas Wood"
       ],
       "license": "Apache-2.0",
+      "license_url": "https://github.com/crow-cli/crow-cli/blob/main/LICENSE.md",
       "distribution": {
         "binary": {
           "darwin-aarch64": {
@@ -385,6 +394,7 @@
         "Cursor"
       ],
       "license": "proprietary",
+      "license_url": "https://cursor.com/terms-of-service",
       "distribution": {
         "binary": {
           "darwin-aarch64": {
@@ -444,6 +454,7 @@
         "LangChain"
       ],
       "license": "MIT",
+      "license_url": "https://github.com/langchain-ai/deepagentsjs/blob/main/LICENSE",
       "distribution": {
         "npx": {
           "package": "deepagents-acp@0.1.7",
@@ -542,6 +553,7 @@
         "Dirac Delta Labs"
       ],
       "license": "Apache-2.0",
+      "license_url": "https://github.com/dirac-run/dirac/blob/master/LICENSE",
       "icon": "https://cdn.agentclientprotocol.com/registry/v1/latest/dirac.svg",
       "distribution": {
         "npx": {
@@ -589,6 +601,7 @@
         "enquiries@fast-agent.ai"
       ],
       "license": "Apache 2.0",
+      "license_url": "https://github.com/evalstate/fast-agent/blob/main/LICENSE",
       "distribution": {
         "uvx": {
           "package": "fast-agent-acp==0.10.1",
@@ -613,6 +626,7 @@
         "Google"
       ],
       "license": "Apache-2.0",
+      "license_url": "https://github.com/google-gemini/gemini-cli/blob/main/LICENSE",
       "distribution": {
         "npx": {
           "package": "@google/gemini-cli@0.57.0",
@@ -654,6 +668,7 @@
         "Stefan de Vogelaere"
       ],
       "license": "Apache-2.0",
+      "license_url": "https://github.com/stefandevo/glm-acp-agent/blob/main/LICENSE",
       "icon": "https://cdn.agentclientprotocol.com/registry/v1/latest/glm-acp-agent.svg",
       "distribution": {
         "npx": {
@@ -672,6 +687,7 @@
         "Block"
       ],
       "license": "Apache-2.0",
+      "license_url": "https://github.com/block/goose/blob/main/LICENSE",
       "distribution": {
         "binary": {
           "darwin-aarch64": {
@@ -721,7 +737,7 @@
     {
       "id": "grok-build",
       "name": "Grok Build",
-      "version": "1.0.15",
+      "version": "1.0.16",
       "description": "xAI's coding agent and CLI",
       "website": "https://x.ai/cli",
       "authors": [
@@ -730,7 +746,7 @@
       "license": "proprietary",
       "distribution": {
         "npx": {
-          "package": "@xai-official/grok@1.0.15",
+          "package": "@xai-official/grok@1.0.16",
           "args": [
             "agent",
             "stdio"
@@ -750,6 +766,7 @@
         "Burin Labs"
       ],
       "license": "Apache-2.0",
+      "license_url": "https://github.com/burin-labs/harn/blob/main/LICENSE-APACHE",
       "distribution": {
         "binary": {
           "darwin-aarch64": {
@@ -804,7 +821,7 @@
     {
       "id": "junie",
       "name": "Junie",
-      "version": "3116.1",
+      "version": "3117.1",
       "description": "AI Coding Agent by JetBrains",
       "repository": "https://github.com/JetBrains/junie-acp-release",
       "website": "https://junie.jetbrains.com",
@@ -815,42 +832,42 @@
       "distribution": {
         "binary": {
           "darwin-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/3116.1/junie-nightly-3116.1-macos-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/3117.1/junie-nightly-3117.1-macos-aarch64.zip",
             "cmd": "./Applications/junie.app/Contents/MacOS/junie",
             "args": [
               "--acp=true"
             ]
           },
           "darwin-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/3116.1/junie-nightly-3116.1-macos-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/3117.1/junie-nightly-3117.1-macos-amd64.zip",
             "cmd": "./Applications/junie.app/Contents/MacOS/junie",
             "args": [
               "--acp=true"
             ]
           },
           "linux-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/3116.1/junie-nightly-3116.1-linux-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/3117.1/junie-nightly-3117.1-linux-aarch64.zip",
             "cmd": "./junie-app/bin/junie",
             "args": [
               "--acp=true"
             ]
           },
           "linux-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/3116.1/junie-nightly-3116.1-linux-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/3117.1/junie-nightly-3117.1-linux-amd64.zip",
             "cmd": "./junie-app/bin/junie",
             "args": [
               "--acp=true"
             ]
           },
           "windows-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/3116.1/junie-nightly-3116.1-windows-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/3117.1/junie-nightly-3117.1-windows-amd64.zip",
             "cmd": "./junie/junie.exe",
             "args": [
               "--acp=true"
             ]
           },
           "windows-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/3116.1/junie-nightly-3116.1-windows-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/3117.1/junie-nightly-3117.1-windows-aarch64.zip",
             "cmd": "./junie/junie.exe",
             "args": [
               "--acp=true"
@@ -871,6 +888,7 @@
         "Kilo Code"
       ],
       "license": "MIT",
+      "license_url": "https://github.com/Kilo-Org/kilocode/blob/main/LICENSE",
       "icon": "https://cdn.agentclientprotocol.com/registry/v1/latest/kilo.svg",
       "distribution": {
         "binary": {
@@ -934,6 +952,7 @@
         "Moonshot AI"
       ],
       "license": "MIT",
+      "license_url": "https://github.com/MoonshotAI/kimi-cli/blob/main/LICENSE",
       "distribution": {
         "binary": {
           "darwin-aarch64": {
@@ -990,6 +1009,7 @@
         "femto"
       ],
       "license": "AGPL-3.0",
+      "license_url": "https://github.com/femto/minion-code/blob/main/LICENSE",
       "distribution": {
         "uvx": {
           "package": "minion-code@0.1.44",
@@ -1011,6 +1031,7 @@
         "Mistral AI"
       ],
       "license": "Apache-2.0",
+      "license_url": "https://github.com/mistralai/mistral-vibe/blob/main/LICENSE",
       "icon": "https://cdn.agentclientprotocol.com/registry/v1/latest/mistral-vibe.svg",
       "distribution": {
         "binary": {
@@ -1053,6 +1074,7 @@
         "Compass AI"
       ],
       "license": "proprietary",
+      "license_url": "https://github.com/Compass-Agentic-Platform/nova/blob/main/LICENSE",
       "icon": "https://cdn.agentclientprotocol.com/registry/v1/latest/nova.svg",
       "distribution": {
         "npx": {
@@ -1074,6 +1096,7 @@
         "Anomaly"
       ],
       "license": "MIT",
+      "license_url": "https://github.com/anomalyco/opencode/blob/dev/LICENSE",
       "icon": "https://cdn.agentclientprotocol.com/registry/v1/latest/opencode.svg",
       "distribution": {
         "binary": {
@@ -1138,6 +1161,7 @@
         "Sergii Kozak <svkozak@gmail.com>"
       ],
       "license": "MIT",
+      "license_url": "https://github.com/svkozak/pi-acp/blob/main/LICENSE",
       "distribution": {
         "npx": {
           "package": "pi-acp@0.0.33"
@@ -1156,6 +1180,7 @@
         "Poolside <feedback@poolside.ai>"
       ],
       "license": "proprietary",
+      "license_url": "https://github.com/poolsideai/pool/blob/main/LICENSE.md",
       "distribution": {
         "binary": {
           "darwin-aarch64": {
@@ -1241,6 +1266,7 @@
         "Alibaba Qwen Team"
       ],
       "license": "Apache-2.0",
+      "license_url": "https://github.com/QwenLM/qwen-code/blob/main/LICENSE",
       "distribution": {
         "npx": {
           "package": "@qwen-code/qwen-code@0.22.3",
@@ -1263,6 +1289,7 @@
         "smbCloud"
       ],
       "license": "Apache-2.0",
+      "license_url": "https://github.com/getsigit/sigit/blob/main/LICENSE",
       "distribution": {
         "binary": {
           "darwin-aarch64": {
@@ -1313,6 +1340,7 @@
         "Stakpak Team <contact@stakpak.dev>"
       ],
       "license": "Apache-2.0",
+      "license_url": "https://github.com/stakpak/agent/blob/main/LICENSE",
       "icon": "https://cdn.agentclientprotocol.com/registry/v1/latest/stakpak.svg",
       "distribution": {
         "binary": {
@@ -1365,6 +1393,7 @@
         "vinhnx"
       ],
       "license": "MIT",
+      "license_url": "https://github.com/vinhnx/VTCode/blob/main/LICENSE",
       "distribution": {
         "binary": {
           "darwin-aarch64": {
