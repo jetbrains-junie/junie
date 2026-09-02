@@ -154,7 +154,7 @@
     {
       "id": "claude-acp",
       "name": "Claude Agent",
-      "version": "0.72.0",
+      "version": "0.73.0",
       "description": "ACP wrapper for Anthropic's Claude",
       "repository": "https://github.com/agentclientprotocol/claude-agent-acp",
       "authors": [
@@ -166,7 +166,7 @@
       "license_url": "https://github.com/agentclientprotocol/claude-agent-acp/blob/main/LICENSE",
       "distribution": {
         "npx": {
-          "package": "@agentclientprotocol/claude-agent-acp@0.72.0"
+          "package": "@agentclientprotocol/claude-agent-acp@0.73.0"
         }
       },
       "icon": "https://cdn.agentclientprotocol.com/registry/v1/latest/claude-acp.svg"
@@ -174,7 +174,7 @@
     {
       "id": "cline",
       "name": "Cline",
-      "version": "3.0.60",
+      "version": "3.0.61",
       "description": "Autonomous coding agent CLI - capable of creating/editing files, running commands, using the browser, and more",
       "repository": "https://github.com/cline/cline",
       "website": "https://cline.bot/cli",
@@ -186,7 +186,7 @@
       "icon": "https://cdn.agentclientprotocol.com/registry/v1/latest/cline.svg",
       "distribution": {
         "npx": {
-          "package": "cline@3.0.60",
+          "package": "cline@3.0.61",
           "args": [
             "--acp"
           ]
@@ -466,7 +466,7 @@
     {
       "id": "devin",
       "name": "Devin",
-      "version": "3000.6.7",
+      "version": "3000.6.11",
       "description": "Devin CLI coding agent by Cognition",
       "website": "https://docs.devin.ai/cli",
       "authors": [
@@ -477,42 +477,42 @@
       "distribution": {
         "binary": {
           "darwin-aarch64": {
-            "archive": "https://static.devin.ai/cli/3000.6.7/devin-3000.6.7-aarch64-apple-darwin.tar.gz",
+            "archive": "https://static.devin.ai/cli/3000.6.11/devin-3000.6.11-aarch64-apple-darwin.tar.gz",
             "cmd": "./bin/devin",
             "args": [
               "acp"
             ]
           },
           "darwin-x86_64": {
-            "archive": "https://static.devin.ai/cli/3000.6.7/devin-3000.6.7-x86_64-apple-darwin.tar.gz",
+            "archive": "https://static.devin.ai/cli/3000.6.11/devin-3000.6.11-x86_64-apple-darwin.tar.gz",
             "cmd": "./bin/devin",
             "args": [
               "acp"
             ]
           },
           "linux-aarch64": {
-            "archive": "https://static.devin.ai/cli/3000.6.7/devin-3000.6.7-aarch64-unknown-linux.tar.gz",
+            "archive": "https://static.devin.ai/cli/3000.6.11/devin-3000.6.11-aarch64-unknown-linux.tar.gz",
             "cmd": "./bin/devin",
             "args": [
               "acp"
             ]
           },
           "linux-x86_64": {
-            "archive": "https://static.devin.ai/cli/3000.6.7/devin-3000.6.7-x86_64-unknown-linux.tar.gz",
+            "archive": "https://static.devin.ai/cli/3000.6.11/devin-3000.6.11-x86_64-unknown-linux.tar.gz",
             "cmd": "./bin/devin",
             "args": [
               "acp"
             ]
           },
           "windows-aarch64": {
-            "archive": "https://static.devin.ai/cli/3000.6.7/devin-3000.6.7-aarch64-pc-windows.zip",
+            "archive": "https://static.devin.ai/cli/3000.6.11/devin-3000.6.11-aarch64-pc-windows.zip",
             "cmd": "./bin\\devin.exe",
             "args": [
               "acp"
             ]
           },
           "windows-x86_64": {
-            "archive": "https://static.devin.ai/cli/3000.6.7/devin-3000.6.7-x86_64-pc-windows.zip",
+            "archive": "https://static.devin.ai/cli/3000.6.11/devin-3000.6.11-x86_64-pc-windows.zip",
             "cmd": "./bin\\devin.exe",
             "args": [
               "acp"
@@ -567,7 +567,7 @@
     {
       "id": "factory-droid",
       "name": "Factory Droid",
-      "version": "0.209.1",
+      "version": "0.210.0",
       "description": "Factory Droid - AI coding agent powered by Factory AI",
       "website": "https://factory.ai/product/cli",
       "authors": [
@@ -576,7 +576,7 @@
       "license": "proprietary",
       "distribution": {
         "npx": {
-          "package": "droid@0.209.1",
+          "package": "droid@0.210.0",
           "args": [
             "exec",
             "--output-format",
@@ -618,7 +618,7 @@
     {
       "id": "gemini",
       "name": "Gemini CLI",
-      "version": "0.57.0",
+      "version": "0.58.0",
       "description": "Google's official CLI for Gemini",
       "repository": "https://github.com/google-gemini/gemini-cli",
       "website": "https://geminicli.com",
@@ -629,7 +629,7 @@
       "license_url": "https://github.com/google-gemini/gemini-cli/blob/main/LICENSE",
       "distribution": {
         "npx": {
-          "package": "@google/gemini-cli@0.57.0",
+          "package": "@google/gemini-cli@0.58.0",
           "args": [
             "--acp"
           ]
@@ -821,7 +821,7 @@
     {
       "id": "junie",
       "name": "Junie",
-      "version": "3126.1",
+      "version": "3129.1",
       "description": "AI Coding Agent by JetBrains",
       "repository": "https://github.com/JetBrains/junie-acp-release",
       "website": "https://junie.jetbrains.com",
@@ -832,42 +832,42 @@
       "distribution": {
         "binary": {
           "darwin-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/3126.1/junie-nightly-3126.1-macos-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/3129.1/junie-nightly-3129.1-macos-aarch64.zip",
             "cmd": "./Applications/junie.app/Contents/MacOS/junie",
             "args": [
               "--acp=true"
             ]
           },
           "darwin-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/3126.1/junie-nightly-3126.1-macos-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/3129.1/junie-nightly-3129.1-macos-amd64.zip",
             "cmd": "./Applications/junie.app/Contents/MacOS/junie",
             "args": [
               "--acp=true"
             ]
           },
           "linux-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/3126.1/junie-nightly-3126.1-linux-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/3129.1/junie-nightly-3129.1-linux-aarch64.zip",
             "cmd": "./junie-app/bin/junie",
             "args": [
               "--acp=true"
             ]
           },
           "linux-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/3126.1/junie-nightly-3126.1-linux-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/3129.1/junie-nightly-3129.1-linux-amd64.zip",
             "cmd": "./junie-app/bin/junie",
             "args": [
               "--acp=true"
             ]
           },
           "windows-x86_64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/3126.1/junie-nightly-3126.1-windows-amd64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/3129.1/junie-nightly-3129.1-windows-amd64.zip",
             "cmd": "./junie/junie.exe",
             "args": [
               "--acp=true"
             ]
           },
           "windows-aarch64": {
-            "archive": "https://github.com/JetBrains/junie/releases/download/3126.1/junie-nightly-3126.1-windows-aarch64.zip",
+            "archive": "https://github.com/JetBrains/junie/releases/download/3129.1/junie-nightly-3129.1-windows-aarch64.zip",
             "cmd": "./junie/junie.exe",
             "args": [
               "--acp=true"
@@ -1088,7 +1088,7 @@
     {
       "id": "opencode",
       "name": "OpenCode",
-      "version": "1.18.25",
+      "version": "1.18.26",
       "description": "The open source coding agent",
       "repository": "https://github.com/anomalyco/opencode",
       "website": "https://opencode.ai",
@@ -1101,52 +1101,52 @@
       "distribution": {
         "binary": {
           "darwin-aarch64": {
-            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.25/opencode-darwin-arm64.zip",
+            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.26/opencode-darwin-arm64.zip",
             "cmd": "./opencode",
             "args": [
               "acp"
             ],
-            "sha256": "606b09722d98069605e16037fb8c3c7c8ebbfed9ba713079a5efb2e5b065ae27"
+            "sha256": "b05d383149a5a417140e8edebd83064142fa36e74fdfcd5f791919dcb12fd33a"
           },
           "darwin-x86_64": {
-            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.25/opencode-darwin-x64.zip",
+            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.26/opencode-darwin-x64.zip",
             "cmd": "./opencode",
             "args": [
               "acp"
             ],
-            "sha256": "6c5c569f779b197e1df6390c62278bbdf0e73e7cc248a429648680c63a6f3f1c"
+            "sha256": "dc1c641bc391f28370c30e5ca95d51b0bb355ab5deb387f2d2adc3d5ad56c68b"
           },
           "linux-aarch64": {
-            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.25/opencode-linux-arm64.tar.gz",
+            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.26/opencode-linux-arm64.tar.gz",
             "cmd": "./opencode",
             "args": [
               "acp"
             ],
-            "sha256": "35ef77897425e41b5183a2c21ac4fb1d4d944d82a94e3c920f57b5490af11ac5"
+            "sha256": "90b99cc2356fea188d67352418ad7223559841178142f719848ca2c88a689c3e"
           },
           "linux-x86_64": {
-            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.25/opencode-linux-x64.tar.gz",
+            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.26/opencode-linux-x64.tar.gz",
             "cmd": "./opencode",
             "args": [
               "acp"
             ],
-            "sha256": "58a3729a6f3432dd6d2917fcc4a949788891a035818646ad480e12c947f56e78"
+            "sha256": "7c20c1ffa91bcca0ac903752260bcc36307dff656833baead2f5ef3b224b16c6"
           },
           "windows-aarch64": {
-            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.25/opencode-windows-arm64.zip",
+            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.26/opencode-windows-arm64.zip",
             "cmd": "./opencode",
             "args": [
               "acp"
             ],
-            "sha256": "5b86809de6469b9c4f730ea4e85cda5cbcd8d48cec47c31a364a1291e10699d5"
+            "sha256": "81cf7b994de08bdfe38655ad7b2e70794da1d0ebe4de53fe050066d983ef7829"
           },
           "windows-x86_64": {
-            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.25/opencode-windows-x64.zip",
+            "archive": "https://github.com/anomalyco/opencode/releases/download/v1.18.26/opencode-windows-x64.zip",
             "cmd": "./opencode.exe",
             "args": [
               "acp"
             ],
-            "sha256": "831e213e5f454d6e8b26f0fb24c7b3d42b40e47d73d154672a9192702eb08416"
+            "sha256": "c7af81e288dff3cf4378c9f3509208ef8bf060d7109589fee2cd943845d87786"
           }
         }
       }
